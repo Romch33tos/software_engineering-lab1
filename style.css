@@ -500,4 +500,260 @@ tbody tr:hover {
   font-weight: 500;
 }
 
-.result
+.result-formula sub {
+  font-size: 0.75rem;
+  font-style: normal;
+}
+
+.value-lg {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2563eb;
+  font-style: normal;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.result-item {
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  border: 1px solid #f1f5f9;
+}
+
+.result-item.accent {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.result-item .result-label {
+  font-size: 0.8rem;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.result-item .result-label sub {
+  font-size: 0.65rem;
+}
+
+.result-number {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.result-unit {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.result-block {
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid #e2e8f0;
+}
+
+.result-block .result-label {
+  font-weight: 600;
+}
+
+.result-block .result-value {
+  font-weight: 600;
+  color: #1e40af;
+}
+
+/* ==========================================================================
+   Разделители
+   ========================================================================== */
+
+.section-divider {
+  margin: 1.25rem 0 0.75rem;
+}
+
+.section-divider h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #475569;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px dashed #cbd5e1;
+}
+
+/* ==========================================================================
+   Итоговое резюме
+   ========================================================================== */
+
+.resume-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.resume-card {
+  background: #f8fafc;
+  border-radius: 0.7rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.resume-card .metric-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.resume-card .metric-label sub {
+  text-transform: none;
+}
+
+.resume-card .metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  font-variant-numeric: tabular-nums;
+}
+
+.resume-card .metric-value.green {
+  color: #16a34a;
+}
+
+.resume-card .metric-value.blue {
+  color: #2563eb;
+}
+
+.resume-card .metric-desc {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.resume-divider {
+  grid-column: 1 / -1;
+  border-top: 1px solid #e2e8f0;
+  margin: 0.25rem 0;
+}
+
+/* ==========================================================================
+   Адаптивность
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .app-container {
+    padding: 1.15rem;
+    border-radius: 1rem;
+    gap: 1.25rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.3rem;
+    padding-left: 0.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    margin-left: 1rem;
+  }
+
+  .two-cols {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tabs {
+    gap: 0.3rem;
+  }
+
+  .tab-btn {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.78rem;
+    gap: 0.2rem;
+  }
+
+  .tab-icon {
+    font-size: 0.85rem;
+  }
+
+  .formula-block {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 0.7rem;
+  }
+
+  .formula-separator {
+    display: none;
+  }
+
+  .formula {
+    font-size: 0.9rem;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-inline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .field-inline input {
+    max-width: 100%;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  thead th,
+  tbody td {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .resume-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .app-container {
+    padding: 0.8rem;
+  }
+
+  .tab-btn {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.7rem;
+  }
+}
