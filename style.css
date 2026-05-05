@@ -1,0 +1,268 @@
+/* === Базовые стили и сброс === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: #f4f7fc;
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+  min-height: 100vh;
+  line-height: 1.5;
+  color: #1e293b;
+}
+
+.app-container {
+  max-width: 1300px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0b2b4a;
+  letter-spacing: -0.3px;
+  border-left: 5px solid #2563eb;
+  padding-left: 1rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* === Навигация по вкладкам === */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.tab-btn:hover {
+  background: #eef2ff;
+  color: #2563eb;
+}
+
+.tab-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* === Панели вкладок === */
+.panel {
+  display: none;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f1f5f9;
+}
+
+.panel.active {
+  display: block;
+}
+
+/* === Сетки === */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* === Поля ввода === */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.2rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.6rem;
+  font-size: 0.9rem;
+  background: #ffffff;
+  transition: border-color 0.15s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* === Таблицы === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 600;
+  padding: 0.6rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+/* === Кнопки === */
+.btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0.3rem 0;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+.btn-outline {
+  background: #ffffff;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+}
+
+.btn-outline:hover {
+  background: #eef2ff;
+}
+
+/* === Результаты и подсказки === */
+.result {
+  margin: 0.3rem 0;
+}
+
+.result.total {
+  font-size: 1.1rem;
+}
+
+.hint {
+  margin-top: 0.8rem;
+  font-style: italic;
+  color: #475569;
+}
+
+.highlight-box {
+  margin-top: 1rem;
+  background: #eef2ff;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+}
+
+.resume-box {
+  background: #f8fafc;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  font-weight: 500;
+}
+
+hr {
+  margin: 1.2rem 0;
+  border: 0.5px solid #e2e8f0;
+}
+
+/* === Адаптивность для мобильных устройств === */
+@media (max-width: 700px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .app-container {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .two-cols {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tabs {
+    gap: 0.25rem;
+  }
+
+  .tab-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  th,
+  td {
+    padding: 0.4rem;
+  }
+}
