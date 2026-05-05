@@ -3,8 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>ТЭО IT-проекта</title>
+  <title>ТЭО IT-проекта — итоговая таблица показателей</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Дополнительные стили для улучшения итоговой таблицы */
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: #ffffff;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .result-table th {
+      background: #1e293b;
+      color: white;
+      font-weight: 600;
+      padding: 0.85rem 0.8rem;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .result-table td {
+      padding: 0.75rem 0.8rem;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: center;
+      font-weight: 500;
+    }
+    .result-table tr:last-child td {
+      border-bottom: none;
+    }
+    .result-table .metric-name {
+      text-align: left;
+      font-weight: 600;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .badge-positive {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .badge-neutral {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+    .resume-insight {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      border-left: 4px solid #2563eb;
+    }
+    .inline-highlight {
+      font-weight: 700;
+      color: #1e40af;
+    }
+    hr {
+      margin: 1rem 0;
+    }
+    .two-cols-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
@@ -209,13 +278,224 @@
       <div class="result"><strong>Фактическая эффективность Eф: <span id="efact">0</span></strong></div>
     </section>
 
-    <!-- Вкладка: Итоговое резюме -->
+    <!-- Вкладка: Итоговое резюме + расширенная таблица -->
     <section id="resume" class="panel" role="tabpanel">
-      <h2>Итоговое резюме ТЭО</h2>
+      <h2>📊 Итоговая таблица технико-экономических показателей</h2>
+      
+      <!-- Новая таблица с полным сравнением проекта и аналога -->
+      <table class="result-table" id="summaryResultTable">
+        <thead>
+          <tr>
+            <th>Показатель</th>
+            <th>Проект (разрабатываемая система)</th>
+            <th>Аналог / базовая техника</th>
+            <th>Преимущество / комментарий</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="metric-name">⚙️ Коэффициент технического уровня (Ak)</td>
+            <td id="akTableProj" colspan="2" style="text-align:center; background:#f8fafc;">—</td>
+            <td id="akComment">Чем выше Ak, тем лучше проект</td>
+          </tr>
+          <tr>
+            <td class="metric-name">💰 Капитальные затраты Kп (руб.)</td>
+            <td id="kpProjectVal">0 ₽</td>
+            <td id="kpAnalogVal">0 ₽</td>
+            <td id="kpDeltaMsg">—</td>
+          </tr>
+          <tr>
+            <td class="metric-name">⚡ Годовые эксплуатационные затраты Зтек (руб./год)</td>
+            <td id="ztekProjectVal">0 ₽</td>
+            <td id="ztekAnalogVal">0 ₽</td>
+            <td id="ztekDeltaMsg">—</td>
+          </tr>
+          <tr>
+            <td class="metric-name">📉 Приведенные затраты (З = С + Eн·Kп), руб.</td>
+            <td id="zpProjectVal">0 ₽</td>
+            <td id="zpAnalogVal">0 ₽</td>
+            <td id="zpDeltaMsg">—</td>
+          </tr>
+          <tr>
+            <td class="metric-name">📈 Годовой экономический эффект (с учетом Ak и N)</td>
+            <td colspan="2" id="godEffectTable" style="font-weight:700; background:#eef2ff;">0 ₽/год</td>
+            <td id="effectComment">Положительный эффект = выгодно</td>
+          </tr>
+          <tr>
+            <td class="metric-name">⏱️ Срок окупаемости Tок (лет)</td>
+            <td colspan="2" id="tokTable">—</td>
+            <td id="tokComment">Меньше норматива (3 года) — эффективно</td>
+          </tr>
+          <tr>
+            <td class="metric-name">📊 Фактический коэффициент эффективности Eф</td>
+            <td colspan="2" id="efactTable">0</td>
+            <td id="efactComment">Если Eф > Eн (0.33) — проект эффективен</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Детальное резюме с динамическими выводами -->
       <div class="resume-box" id="resumeContent"></div>
+      
+      <div class="resume-insight" id="dynamicInsight">
+        🔍 <strong>Аналитический вывод:</strong> Данные обновляются автоматически при изменении любых параметров.
+      </div>
     </section>
   </div>
 
   <script src="script.js"></script>
+  <script>
+    (function() {
+      // Дополнительный модуль для расширенного отображения итоговой таблицы и резюме.
+      // Не нарушает основную логику, а расширяет функционал вкладки "Итог".
+      function updateExtendedSummary() {
+        // Получаем актуальные значения из DOM (уже рассчитаны основным скриптом)
+        const akElem = document.getElementById('akValue');
+        const ak = akElem ? parseFloat(akElem.textContent) : 1;
+        
+        const kpProjElem = document.getElementById('kpProject');
+        const kpAnalogElem = document.getElementById('kpAnalog');
+        const kpProject = kpProjElem ? parseFloat(kpProjElem.textContent) : 0;
+        const kpAnalog = kpAnalogElem ? parseFloat(kpAnalogElem.textContent) : 0;
+        
+        const ztekTotalElem = document.getElementById('ztekTotal');
+        const ztekOper = ztekTotalElem ? parseFloat(ztekTotalElem.textContent) : 0;
+        
+        // Эксплуатационные затраты для аналога: по методике (увеличиваем на 15% как в оригинале: zAnalog = operationalCost * 1.15 + en*kpAnalog)
+        // Для таблицы нам нужно отобразить Зтек для аналога отдельно? В исходной модели Зтек одинаковая для обоих вариантов (эксплуатация одной техники),
+        // но в расчёте приведённых затрат аналог имеет 1.15 * operationalCost. Чтобы сделать таблицу наглядной, покажем:
+        // - Эксплуатационные затраты проекта = operationalCost
+        // - Эксплуатационные затраты аналога = operationalCost * 1.15 (увеличены из-за менее совершенной техники)
+        // Это логично и соответствует формуле Z1 = operationalCost*1.15 + En*KpAnalog.
+        const settings = (function() {
+          try {
+            return {
+              en: parseFloat(document.getElementById('en').value) || 0.33,
+              N: parseFloat(document.getElementById('nVolume').value) || 1
+            };
+          } catch(e) { return { en:0.33, N:1 }; }
+        })();
+        
+        const ztekAnalogBase = ztekOper * 1.15;
+        const en = settings.en;
+        const N = settings.N;
+        
+        const zpProject = ztekOper + en * kpProject;
+        const zpAnalog = ztekAnalogBase + en * kpAnalog;
+        
+        // Годовой эффект (формула из исходного скрипта)
+        let annualEffect = (zpAnalog * ak - zpProject) * N;
+        if (isNaN(annualEffect)) annualEffect = 0;
+        
+        // Срок окупаемости и Eф (аналогично calculateEfficiency)
+        let paybackPeriod = (annualEffect > 0 && kpProject > 0) ? kpProject / annualEffect : Infinity;
+        let efficiencyRatio = (paybackPeriod > 0 && isFinite(paybackPeriod)) ? 1 / paybackPeriod : 0;
+        
+        // Обновляем таблицу
+        document.getElementById('akTableProj')?.setAttribute('colspan', '2');
+        const akCell = document.getElementById('akTableProj');
+        if (akCell) akCell.innerHTML = `<strong>${ak.toFixed(3)}</strong> (отношение Jэту)`;
+        document.getElementById('kpProjectVal').innerHTML = `${kpProject.toFixed(2)} ₽`;
+        document.getElementById('kpAnalogVal').innerHTML = `${kpAnalog.toFixed(2)} ₽`;
+        const kpDelta = kpProject - kpAnalog;
+        document.getElementById('kpDeltaMsg').innerHTML = kpDelta < 0 ? `Проект дешевле на ${Math.abs(kpDelta).toFixed(0)} ₽` : (kpDelta > 0 ? `Аналог дешевле на ${kpDelta.toFixed(0)} ₽` : 'Равны');
+        
+        document.getElementById('ztekProjectVal').innerHTML = `${ztekOper.toFixed(2)} ₽/год`;
+        document.getElementById('ztekAnalogVal').innerHTML = `${ztekAnalogBase.toFixed(2)} ₽/год`;
+        const ztekDelta = ztekOper - ztekAnalogBase;
+        document.getElementById('ztekDeltaMsg').innerHTML = ztekDelta < 0 ? `Проект выгоднее в эксплуатации на ${Math.abs(ztekDelta).toFixed(0)} ₽/год` : (ztekDelta > 0 ? `Аналог экономичнее на ${ztekDelta.toFixed(0)} ₽/год` : 'Одинаковы');
+        
+        document.getElementById('zpProjectVal').innerHTML = `${zpProject.toFixed(2)} ₽`;
+        document.getElementById('zpAnalogVal').innerHTML = `${zpAnalog.toFixed(2)} ₽`;
+        const zpDelta = zpProject - zpAnalog;
+        document.getElementById('zpDeltaMsg').innerHTML = zpDelta < 0 ? `Ниже на ${Math.abs(zpDelta).toFixed(0)} ₽ (проект эффективнее)` : (zpDelta > 0 ? `Аналог выгоднее на ${zpDelta.toFixed(0)} ₽` : 'Равны');
+        
+        const godEffectElem = document.getElementById('godEffect');
+        const godEffectValue = godEffectElem ? parseFloat(godEffectElem.textContent) : annualEffect;
+        document.getElementById('godEffectTable').innerHTML = `${godEffectValue.toFixed(2)} ₽/год`;
+        const effectCommentSpan = document.getElementById('effectComment');
+        if (godEffectValue > 0) effectCommentSpan.innerHTML = '✅ Положительный эффект, внедрение целесообразно';
+        else if (godEffectValue < 0) effectCommentSpan.innerHTML = '⚠️ Отрицательный эффект, проект экономически невыгоден';
+        else effectCommentSpan.innerHTML = 'Нулевой эффект';
+        
+        const tokElem = document.getElementById('tok');
+        let tokValue = tokElem ? tokElem.textContent : (isFinite(paybackPeriod) ? paybackPeriod.toFixed(2) : '—');
+        if (tokValue === '—' || tokValue === 'Infinity') tokValue = '> 10 лет';
+        document.getElementById('tokTable').innerHTML = tokValue;
+        const efactElem = document.getElementById('efact');
+        let efactValue = efactElem ? efactElem.textContent : efficiencyRatio.toFixed(3);
+        document.getElementById('efactTable').innerHTML = efactValue;
+        
+        // Комментарии по срокам и эффективности
+        const tokNum = (typeof tokValue === 'string' && tokValue.includes('>')) ? 999 : parseFloat(tokValue);
+        const tokCommentSpan = document.getElementById('tokComment');
+        if (!isNaN(tokNum) && tokNum < 3) tokCommentSpan.innerHTML = '✅ Отличный срок (менее 3 лет) — высокая привлекательность';
+        else if (!isNaN(tokNum) && tokNum <= 5) tokCommentSpan.innerHTML = '👍 Приемлемый срок окупаемости (3–5 лет)';
+        else tokCommentSpan.innerHTML = '⚠️ Срок окупаемости превышает нормативный (3 года), требуется анализ рисков';
+        
+        const efactNum = parseFloat(efactValue);
+        const efactCommentSpan = document.getElementById('efactComment');
+        if (!isNaN(efactNum) && efactNum > en) efactCommentSpan.innerHTML = `✅ Eф = ${efactValue} > Eн = ${en} → инвестиции эффективны`;
+        else if (!isNaN(efactNum) && efactNum === en) efactCommentSpan.innerHTML = `⚠️ Эффективность на уровне норматива (Eф = ${en})`;
+        else efactCommentSpan.innerHTML = `❌ Eф = ${efactValue} < Eн = ${en}, проект нецелесообразен`;
+        
+        // Также обновляем текстовое резюме для единообразия (не перетирая полностью, но дополним)
+        const resumeDiv = document.getElementById('resumeContent');
+        if (resumeDiv) {
+          const summaryHtml = `
+            <div style="display:flex; flex-direction: column; gap:0.5rem;">
+              <div><span class="inline-highlight">📌 Коэффициент технического уровня (Ak):</span> ${ak.toFixed(3)}</div>
+              <div><span class="inline-highlight">💰 Капитальные затраты (Kп):</span> Проект = ${kpProject.toFixed(0)} руб. | Аналог = ${kpAnalog.toFixed(0)} руб.</div>
+              <div><span class="inline-highlight">⚡ Годовые эксплуатационные затраты (Зтек):</span> Проект = ${ztekOper.toFixed(0)} руб. | Аналог = ${ztekAnalogBase.toFixed(0)} руб.</div>
+              <div><span class="inline-highlight">📉 Приведенные затраты (З):</span> Проект = ${zpProject.toFixed(0)} руб. | Аналог = ${zpAnalog.toFixed(0)} руб.</div>
+              <div><span class="inline-highlight">📈 Годовой экономический эффект:</span> <strong>${godEffectValue.toFixed(0)} руб./год</strong></div>
+              <div><span class="inline-highlight">⏱️ Срок окупаемости:</span> ${tokValue} &nbsp;|&nbsp; <span class="inline-highlight">Eф:</span> ${efactValue}</div>
+            </div>
+          `;
+          resumeDiv.innerHTML = summaryHtml;
+        }
+        
+        // Подготовка аналитического текста для блока insight
+        const insightDiv = document.getElementById('dynamicInsight');
+        if (insightDiv) {
+          let verdict = '';
+          if (godEffectValue > 0 && ((isFinite(paybackPeriod) && paybackPeriod <= 3) || efactNum > en)) {
+            verdict = '✅ Проект демонстрирует высокую экономическую эффективность, превышает нормативные требования. Рекомендуется к реализации.';
+          } else if (godEffectValue > 0) {
+            verdict = '👍 Проект прибылен, но показатели окупаемости близки к нормативным. Желательна оптимизация затрат либо увеличение объема N.';
+          } else {
+            verdict = '⚠️ На данный момент проект не обеспечивает достаточного эффекта. Пересмотрите настройки: стоимость аналога, KTU, план-график или эксплуатационные издержки.';
+          }
+          insightDiv.innerHTML = `🔍 <strong>Аналитический вывод:</strong> ${verdict}<br><small>Данные пересчитаны с учетом всех параметров (оклады, КТУ, план-график, затраты).</small>`;
+        }
+      }
+      
+      // Перехватываем исходную функцию recalcAll, чтобы после неё обновлять итоговую таблицу
+      const originalRecalc = window.recalcAll;
+      if (originalRecalc) {
+        window.recalcAll = function() {
+          originalRecalc();
+          setTimeout(updateExtendedSummary, 5);
+        };
+      } else {
+        // Если вдруг функция не глобальна, наблюдаем за изменениями через MutationObserver (но скрипт использует замыкание).
+        // Просто установим интервал (не рекомендуется) или слушаем события ввода дополнительно.
+        document.addEventListener('input', function() { setTimeout(updateExtendedSummary, 20); });
+        document.addEventListener('change', function() { setTimeout(updateExtendedSummary, 20); });
+      }
+      
+      // Также обновляем при старте, после полной инициализации DOM
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(updateExtendedSummary, 200);
+      });
+      
+      // Дополнительно: вызывать обновления после любых кликов по кнопкам добавления строк (они меняют данные)
+      const observer = new MutationObserver(function(mutations) {
+        setTimeout(updateExtendedSummary, 30);
+      });
+      observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['value', 'textContent'] });
+      setTimeout(() => { updateExtendedSummary(); }, 100);
+    })();
+  </script>
 </body>
 </html>
