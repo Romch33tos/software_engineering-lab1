@@ -191,27 +191,24 @@ td {
   font-weight: 700;
 }
 
-.highlight-box {
-  margin-top: 1rem;
-  background: #eef2ff;
-  padding: 0.8rem;
-  border-radius: 0.8rem;
-  font-size: 1rem;
+.result-block {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: #fafcff;
+  border-radius: 0.5rem;
 }
 
-.resume-box {
-  background: #f8fafc;
-  border-radius: 1rem;
-  padding: 1.2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  font-weight: 500;
-}
-
-hr {
-  margin: 1.2rem 0;
-  border: 0.5px solid #e2e8f0;
+.calculation-detail {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #2d3a4a;
+  font-family: inherit;
+  margin-top: 0.4rem;
+  padding: 0.6rem 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  white-space: pre-line;
+  word-break: break-word;
 }
 
 .result-table {
@@ -261,35 +258,10 @@ hr {
   font-family: inherit;
 }
 
-.inline-highlight {
-  font-weight: 600;
-  color: #1e40af;
-}
-
 sub {
   font-size: 0.7em;
   vertical-align: sub;
   line-height: 1;
-}
-
-.result-block {
-  margin-bottom: 0.75rem;
-  padding: 0.5rem;
-  background: #fafcff;
-  border-radius: 0.5rem;
-}
-
-.calculation-detail {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #2d3a4a;
-  font-family: inherit;
-  margin-top: 0.3rem;
-  padding: 0.5rem 0.75rem;
-  background: #f9fafb;
-  border-radius: 0.5rem;
-  border-left: 3px solid #2563eb;
-  white-space: pre-line;
 }
 
 @media (max-width: 700px) {
@@ -301,4 +273,5 @@ sub {
   .tab-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
   table { font-size: 0.75rem; }
   th, td { padding: 0.4rem; }
+  .calculation-detail { font-size: 0.8rem; }
 }
