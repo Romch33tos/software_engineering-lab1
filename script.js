@@ -20,7 +20,7 @@
       balanceCost: parseFloat(document.getElementById('balanceCost').value) || 0,
       annualTimeFund: parseFloat(document.getElementById('annualTimeFund').value) || 2000,
       normativeEfficiency: parseFloat(document.getElementById('normativeEfficiency').value) || 0.33,
-      annualVolume: parseFloat(document.getElementById('annualVolume').value) || 1
+      annualVolume: parseFloat(document.getElementById('annualVolumeValue').value) || 1
     };
   }
 
@@ -50,7 +50,7 @@
   function createKtuRow() {
     const row = document.createElement('tr');
     row.innerHTML = '<td><input type="text" placeholder="Название" style="width:100%"></td>' +
-      '<td><input type="number" step="0.01" value="0.2" style="width:90px"></tr>' +
+      '<td><input type="number" step="0.01" value="0.2" style="width:90px"></td>' +
       '<td><input type="number" step="0.1" min="1" max="5" value="3" style="width:80px"></td>';
     return row;
   }
@@ -211,7 +211,7 @@
         const match = line.match(/= ([\d.]+)$/);
         return match ? match[1] : '0';
       });
-      fotDetailDiv.textContent = 'Расчет:\n' + fotCalculationLines.join('\n') + 
+      fotDetailDiv.textContent = 'Расчет:\n' + fotCalculationLines.join('\n') +
         `\nИтого: ${totals.join(' + ')} = ${totalBaseSalary.toFixed(2)}`;
     }
     const additionalSalary = totalBaseSalary * settings.additionalSalaryRatio;
@@ -261,7 +261,7 @@
         const match = p.match(/= ([\d.]+)$/);
         return match ? match[1] : '0';
       });
-      payrollDetailDiv.textContent = 'Расчет:\n' + payrollParts.join('\n') + 
+      payrollDetailDiv.textContent = 'Расчет:\n' + payrollParts.join('\n') +
         `\nИтого: ${totals.join(' + ')} = ${annualPayroll.toFixed(2)}`;
     }
     const depreciation = settings.balanceCost * 0.2;
@@ -305,7 +305,8 @@
     const capitalCosts = calculateCapitalCosts();
     const operatingCosts = calculateOperatingCosts();
 
-    document.getElementById('akValueCell').innerHTML = `<strong>${technicalLevelRatio.toFixed(3)}</strong>`;
+    const akCell = document.getElementById('akValueCell');
+    if (akCell) akCell.innerHTML = `<strong>${technicalLevelRatio.toFixed(3)}</strong>`;
 
     const projectReducedCosts = operatingCosts + settings.normativeEfficiency * capitalCosts.projectCosts;
     const analogReducedCosts = operatingCosts * 1.15 + settings.normativeEfficiency * capitalCosts.analogCosts;
@@ -395,9 +396,7 @@
       efficiencyCommentSpan.innerHTML = `Eф = ${actualEfficiency.toFixed(3)} < Eн = ${settings.normativeEfficiency}, проект нецелесообразен`;
     }
 
-    const displayEffect = annualEffect.toFixed(0);
-    const displayPaybackYear = isFinite(paybackPeriod) ? paybackPeriod.toFixed(2) : '>10';
-    const summaryText = `Ak: ${ak.toFixed(3)} | Kп проект: ${capitalCosts.projectCosts.toFixed(0)} руб. | Аналог: ${capitalCosts.analogCosts.toFixed(0)} руб. | Годовой эффект: ${displayEffect} руб./год | Срок окупаемости: ${displayPaybackYear} лет | Eф: ${actualEfficiency.toFixed(3)}`;
+    const summaryText = `Ak: ${ak.toFixed(3)} | Kп проект: ${capitalCosts.projectCosts.toFixed(0)} руб. | Аналог: ${capitalCosts.analogCosts.toFixed(0)} руб. | Годовой эффект: ${annualEffect.toFixed(0)} руб./год | Срок окупаемости: ${displayPayback} лет | Eф: ${actualEfficiency.toFixed(3)}`;
     const summaryCell = document.getElementById('summaryTextCell');
     if (summaryCell) summaryCell.innerHTML = summaryText;
 
