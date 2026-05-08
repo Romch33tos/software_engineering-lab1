@@ -199,12 +199,12 @@ td {
 }
 
 .calculation-detail {
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  line-height: 1.5;
   color: #2d3a4a;
-  font-family: inherit;
-  margin-top: 0.4rem;
-  padding: 0.6rem 0.75rem;
+  font-family: monospace;
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.75rem;
   background: #f9fafb;
   border-radius: 0.5rem;
   white-space: pre-line;
@@ -273,5 +273,5 @@ sub {
   .tab-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
   table { font-size: 0.75rem; }
   th, td { padding: 0.4rem; }
-  .calculation-detail { font-size: 0.8rem; }
+  .calculation-detail { font-size: 0.7rem; }
 }
