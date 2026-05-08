@@ -191,13 +191,6 @@ td {
   font-weight: 700;
 }
 
-.hint {
-  margin-top: 0.8rem;
-  font-style: italic;
-  color: #475569;
-  font-size: 0.85rem;
-}
-
 .highlight-box {
   margin-top: 1rem;
   background: #eef2ff;
@@ -232,7 +225,7 @@ hr {
 }
 
 .result-table th {
-  background: #1e293b;
+  background: #1e40af;
   color: white;
   font-weight: 600;
   padding: 0.85rem 0.8rem;
@@ -263,16 +256,17 @@ hr {
   border-radius: 1rem;
   padding: 1rem;
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   border-left: 4px solid #2563eb;
+  font-family: inherit;
 }
 
 .inline-highlight {
-  font-weight: 700;
+  font-weight: 600;
   color: #1e40af;
 }
 
-.sub {
+sub {
   font-size: 0.7em;
   vertical-align: sub;
   line-height: 1;
@@ -285,46 +279,17 @@ hr {
   border-radius: 0.5rem;
 }
 
-.calc-detail {
-  font-size: 0.7rem;
-  color: #4b5563;
-  font-family: 'Courier New', monospace;
-  margin-top: 0.2rem;
-  padding-left: 0.5rem;
-  border-left: 2px solid #2563eb;
+.calculation-detail {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #2d3a4a;
+  font-family: inherit;
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.75rem;
   background: #f9fafb;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-}
-
-.tooltip-icon {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  background: #2563eb;
-  color: white;
-  border-radius: 50%;
-  font-size: 12px;
-  text-align: center;
-  line-height: 18px;
-  margin-left: 8px;
-  cursor: help;
-  position: relative;
-}
-
-.tooltip-icon:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 25px;
-  left: 0;
-  background: #1e293b;
-  color: white;
-  font-size: 0.75rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 0.4rem;
-  white-space: nowrap;
-  z-index: 100;
-  font-family: monospace;
+  border-radius: 0.5rem;
+  border-left: 3px solid #2563eb;
+  white-space: pre-line;
 }
 
 @media (max-width: 700px) {
@@ -336,5 +301,4 @@ hr {
   .tab-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
   table { font-size: 0.75rem; }
   th, td { padding: 0.4rem; }
-  .tooltip-icon:hover::after { white-space: normal; width: 200px; }
 }
