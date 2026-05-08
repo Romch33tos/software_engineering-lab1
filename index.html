@@ -63,10 +63,6 @@
         </div>
       </div>
     </div>
-    <div class="highlight-box">
-      <strong>A<sub>k</sub> = J<sub>эту1</sub> / J<sub>эту2</sub> = <span id="akValue">1.00</span></strong>
-      <div class="calculation-detail" id="akDetail"></div>
-    </div>
   </section>
 
   <section id="plan" class="panel" role="tabpanel">
@@ -147,34 +143,67 @@
       <div class="calculation-detail" id="reducedCostsAnalogDetail"></div>
     </div>
     <div class="result-block">
-      <div class="result"><strong>Годовой эффект Э = (З<sub>1</sub> × A<sub>k</sub> - З<sub>2</sub>) × N: <span id="annualEffect">0</span> руб.</strong></div>
+      <div class="result"><strong>Годовой эффект: <span id="annualEffect">0</span> руб.</strong></div>
       <div class="calculation-detail" id="annualEffectDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Срок окупаемости T<sub>ок</sub> (лет): <span id="paybackPeriod">0</span></strong></div>
-      <div class="calculation-detail" id="paybackPeriodDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Фактическая эффективность E<sub>ф</sub>: <span id="actualEfficiency">0</span></strong></div>
-      <div class="calculation-detail" id="actualEfficiencyDetail"></div>
     </div>
   </section>
 
   <section id="resume" class="panel" role="tabpanel">
     <h2>Итоговая таблица технико-экономических показателей</h2>
     <table class="result-table" id="summaryResultTable">
-      <thead><tr><th>Показатель</th><th>Проект</th><th>Аналог</th><th>Комментарий</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Показатель</th>
+          <th>Проект</th>
+          <th>Аналог</th>
+          <th>Комментарий</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td class="metric-name">Коэффициент технического уровня (A<sub>k</sub>)</td><td id="akTableProject" colspan="2">—</td><td id="akComment">Чем выше Ak, тем лучше проект</td></tr>
-        <tr><td class="metric-name">Капитальные затраты K<sub>п</sub> (руб.)</td><td id="kpProjectValue">0 ₽</td><td id="kpAnalogValue">0 ₽</td><td id="kpDeltaMessage">—</td></tr>
-        <tr><td class="metric-name">Годовые эксплуатационные затраты З<sub>тек</sub> (руб./год)</td><td id="ztekProjectValue">0 ₽</td><td id="ztekAnalogValue">0 ₽</td><td id="ztekDeltaMessage">—</td></tr>
-        <tr><td class="metric-name">Приведенные затраты (З = С + E<sub>н</sub>·K<sub>п</sub>)</td><td id="zpProjectValue">0 ₽</td><td id="zpAnalogValue">0 ₽</td><td id="zpDeltaMessage">—</td></tr>
-        <tr><td class="metric-name">Годовой экономический эффект</td><td colspan="2" id="annualEffectTable">0 ₽/год</td><td id="effectComment">Положительный эффект = выгодно</td></tr>
-        <tr><td class="metric-name">Срок окупаемости T<sub>ок</sub> (лет)</td><td colspan="2" id="paybackTable">—</td><td id="paybackComment">Меньше норматива (3 года) — эффективно</td></tr>
-        <tr><td class="metric-name">Фактический коэффициент E<sub>ф</sub></td><td colspan="2" id="actualEfficiencyTable">0</td><td id="efficiencyComment">Если Eф > Eн (0.33) — проект эффективен</td></tr>
+        <tr>
+          <td class="metric-name">Коэффициент технического уровня A<sub>k</sub> = J<sub>эту1</sub> / J<sub>эту2</sub></td>
+          <td colspan="2" id="akValueCell" style="text-align: center; font-weight: 700;">—</td>
+          <td id="akComment">Чем выше Ak, тем лучше проект</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Капитальные затраты K<sub>п</sub> (руб.)</td>
+          <td id="kpProjectValue">0 ₽</td>
+          <td id="kpAnalogValue">0 ₽</td>
+          <td id="kpDeltaMessage">—</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Годовые эксплуатационные затраты З<sub>тек</sub> (руб./год)</td>
+          <td id="ztekProjectValue">0 ₽</td>
+          <td id="ztekAnalogValue">0 ₽</td>
+          <td id="ztekDeltaMessage">—</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Приведенные затраты (З = С + E<sub>н</sub>·K<sub>п</sub>)</td>
+          <td id="zpProjectValue">0 ₽</td>
+          <td id="zpAnalogValue">0 ₽</td>
+          <td id="zpDeltaMessage">—</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Годовой экономический эффект Э = (З<sub>1</sub> × A<sub>k</sub> - З<sub>2</sub>) × N</td>
+          <td colspan="2" id="annualEffectTable" style="text-align: center; font-weight: 700;">0 ₽/год</td>
+          <td id="effectComment">Положительный эффект = выгодно</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Срок окупаемости T<sub>ок</sub> = K<sub>п</sub> / Э (лет)</td>
+          <td colspan="2" id="paybackTable" style="text-align: center;">—</td>
+          <td id="paybackComment">Меньше норматива (3 года) — эффективно</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Фактический коэффициент E<sub>ф</sub> = 1 / T<sub>ок</sub></td>
+          <td colspan="2" id="actualEfficiencyTable" style="text-align: center;">0</td>
+          <td id="efficiencyComment">Если Eф > Eн (0.33) — проект эффективен</td>
+        </tr>
+        <tr class="summary-row">
+          <td class="metric-name"><strong>Сводка по проекту</strong></td>
+          <td colspan="3" id="summaryTextCell" style="text-align: left; background: #eef2ff;">—</td>
+        </tr>
       </tbody>
     </table>
-    <div class="resume-box" id="resumeContent"></div>
     <div class="resume-insight" id="dynamicInsight">Аналитический вывод: данные обновляются автоматически.</div>
   </section>
 </div>
