@@ -18,7 +18,7 @@ body {
 }
 
 .app-container {
-  max-width: 1300px;
+  max-width: 1400px;
   width: 100%;
   background: #ffffff;
   border-radius: 1.5rem;
@@ -119,8 +119,7 @@ label {
   margin-bottom: 0.2rem;
 }
 
-input,
-select {
+input, select {
   width: 100%;
   padding: 0.65rem;
   border: 1px solid #cbd5e1;
@@ -130,8 +129,7 @@ select {
   transition: border-color 0.15s;
 }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
   outline: none;
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
@@ -149,7 +147,6 @@ th {
   font-weight: 600;
   padding: 0.6rem;
   text-align: left;
-  white-space: nowrap;
 }
 
 td {
@@ -186,16 +183,19 @@ td {
 
 .result {
   margin: 0.3rem 0;
+  font-size: 1rem;
 }
 
 .result.total {
   font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .hint {
   margin-top: 0.8rem;
   font-style: italic;
   color: #475569;
+  font-size: 0.85rem;
 }
 
 .highlight-box {
@@ -203,6 +203,7 @@ td {
   background: #eef2ff;
   padding: 0.8rem;
   border-radius: 0.8rem;
+  font-size: 1rem;
 }
 
 .resume-box {
@@ -271,49 +272,69 @@ hr {
   color: #1e40af;
 }
 
-.formula-hint {
-  font-size: 0.75rem;
-  color: #4b5563;
-  background: #f9fafb;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  margin-top: 0.25rem;
-  font-family: monospace;
-}
-
 .sub {
   font-size: 0.7em;
   vertical-align: sub;
   line-height: 1;
 }
 
+.result-block {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: #fafcff;
+  border-radius: 0.5rem;
+}
+
+.calc-detail {
+  font-size: 0.7rem;
+  color: #4b5563;
+  font-family: 'Courier New', monospace;
+  margin-top: 0.2rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #2563eb;
+  background: #f9fafb;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.tooltip-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: #2563eb;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  text-align: center;
+  line-height: 18px;
+  margin-left: 8px;
+  cursor: help;
+  position: relative;
+}
+
+.tooltip-icon:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  background: #1e293b;
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+  white-space: nowrap;
+  z-index: 100;
+  font-family: monospace;
+}
+
 @media (max-width: 700px) {
-  body {
-    padding: 0.5rem;
-  }
-  .app-container {
-    padding: 1rem;
-    border-radius: 1rem;
-  }
-  h1 {
-    font-size: 1.3rem;
-  }
-  .two-cols {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .tabs {
-    gap: 0.25rem;
-  }
-  .tab-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  table {
-    font-size: 0.75rem;
-  }
-  th,
-  td {
-    padding: 0.4rem;
-  }
+  body { padding: 0.5rem; }
+  .app-container { padding: 1rem; border-radius: 1rem; }
+  h1 { font-size: 1.3rem; }
+  .two-cols { grid-template-columns: 1fr; gap: 1rem; }
+  .tabs { gap: 0.25rem; }
+  .tab-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+  table { font-size: 0.75rem; }
+  th, td { padding: 0.4rem; }
+  .tooltip-icon:hover::after { white-space: normal; width: 200px; }
 }
