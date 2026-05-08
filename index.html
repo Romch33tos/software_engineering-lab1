@@ -1,172 +1,173 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>ТЭО IT-проекта — детальный расчет показателей</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ТЭО IT-проекта — детальный расчет показателей</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app-container">
-  <h1>Технико-экономическое обоснование IT-проекта</h1>
+    <h1>Технико-экономическое обоснование IT-проекта</h1>
 
-  <nav class="tabs" role="tablist">
-    <button class="tab-btn active" data-tab="settings" role="tab">Настройки</button>
-    <button class="tab-btn" data-tab="ktu" role="tab">КТУ</button>
-    <button class="tab-btn" data-tab="plan" role="tab">План-график</button>
-    <button class="tab-btn" data-tab="costs" role="tab">Затраты (K<sub>п</sub>)</button>
-    <button class="tab-btn" data-tab="operating" role="tab">Эксплуатация</button>
-    <button class="tab-btn" data-tab="efficiency" role="tab">Эффективность</button>
-    <button class="tab-btn" data-tab="resume" role="tab">Итог</button>
-  </nav>
+    <nav class="tabs" role="tablist">
+        <button class="tab-btn active" data-tab="settings" role="tab">Настройки</button>
+        <button class="tab-btn" data-tab="ktu" role="tab">КТУ</button>
+        <button class="tab-btn" data-tab="plan" role="tab">План-график</button>
+        <button class="tab-btn" data-tab="costs" role="tab">Затраты (K<sub>п</sub>)</button>
+        <button class="tab-btn" data-tab="operating" role="tab">Эксплуатация</button>
+        <button class="tab-btn" data-tab="efficiency" role="tab">Эффективность</button>
+        <button class="tab-btn" data-tab="resume" role="tab">Итог</button>
+    </nav>
 
-  <section id="settings" class="panel active" role="tabpanel">
-    <h2>Базовые настройки</h2>
-    <div class="settings-grid">
-      <div class="field"><label for="salaryDeveloper">Оклад разработчика (руб/мес)</label><input id="salaryDeveloper" type="number" value="180000"></div>
-      <div class="field"><label for="salaryAnalyst">Оклад аналитика (руб/мес)</label><input id="salaryAnalyst" type="number" value="160000"></div>
-      <div class="field"><label for="salaryProjectManager">Оклад руководителя (руб/мес)</label><input id="salaryProjectManager" type="number" value="210000"></div>
-      <div class="field"><label for="salaryEngineer">Оклад инженера (руб/мес)</label><input id="salaryEngineer" type="number" value="140000"></div>
-      <div class="field"><label for="coefficientAdditionalSalary">Коэф. доп. зарплаты (W<sub>d</sub>)</label><input id="coefficientAdditionalSalary" type="number" step="0.01" value="0.4"></div>
-      <div class="field"><label for="coefficientTaxes">Коэф. налогов (W<sub>c</sub>)</label><input id="coefficientTaxes" type="number" step="0.001" value="0.302"></div>
-      <div class="field"><label for="coefficientOverhead">Коэф. накладных (W<sub>н</sub>)</label><input id="coefficientOverhead" type="number" step="0.01" value="0.6"></div>
-      <div class="field"><label for="workDaysPerMonth">Рабочих дней в месяце</label><input id="workDaysPerMonth" type="number" value="21"></div>
-      <div class="field"><label for="machineHourCost">Стоимость маш.часа (S<sub>мч</sub>, руб)</label><input id="machineHourCost" type="number" value="350"></div>
-      <div class="field"><label for="electricityTariff">Тариф э/э (руб/кВтч)</label><input id="electricityTariff" type="number" step="0.1" value="5.8"></div>
-      <div class="field"><label for="equipmentPower">Мощность оборудования (кВт)</label><input id="equipmentPower" type="number" step="0.1" value="0.8"></div>
-      <div class="field"><label for="balanceCost">Балансовая стоимость (руб)</label><input id="balanceCost" type="number" value="450000"></div>
-      <div class="field"><label for="annualTimeFund">Годовой фонд часов (Т<sub>г</sub>)</label><input id="annualTimeFund" type="number" value="2000"></div>
-      <div class="field"><label for="normativeEfficiency">Нормативный коэф. (E<sub>н</sub>)</label><input id="normativeEfficiency" type="number" step="0.01" value="0.33"></div>
-      <div class="field"><label for="annualVolumeValue">Годовой объем (N)</label><input id="annualVolumeValue" type="number" value="1"></div>
-    </div>
-  </section>
-
-  <section id="ktu" class="panel" role="tabpanel">
-    <h2>Коэффициент технического уровня (КТУ)</h2>
-    <div class="two-cols">
-      <div>
-        <h3>Проект (новый)</h3>
-        <table id="ktuProjectTable"><thead><tr><th>Показатель</th><th>Вес B<sub>j</sub></th><th>Оценка X<sub>j</sub> (1-5)</th></tr></thead><tbody></tbody></table>
-        <button class="btn" id="addKtuRowProject" type="button">Добавить показатель</button>
-        <div class="result-block">
-          <div class="result"><strong>J<sub>эту проект</sub> = <span id="jetuProject">0</span></strong></div>
-          <div class="calculation-detail" id="jetuProjectDetail"></div>
+    <section id="settings" class="panel active" role="tabpanel">
+        <h2>Базовые настройки</h2>
+        <div class="settings-grid">
+            <div class="field"><label for="salaryDeveloper">Оклад разработчика (руб/мес)</label><input id="salaryDeveloper" type="number" value="180000"></div>
+            <div class="field"><label for="salaryAnalyst">Оклад аналитика (руб/мес)</label><input id="salaryAnalyst" type="number" value="160000"></div>
+            <div class="field"><label for="salaryProjectManager">Оклад руководителя (руб/мес)</label><input id="salaryProjectManager" type="number" value="210000"></div>
+            <div class="field"><label for="salaryEngineer">Оклад инженера (руб/мес)</label><input id="salaryEngineer" type="number" value="140000"></div>
+            <div class="field"><label for="coefficientAdditionalSalary">Коэф. доп. зарплаты (W<sub>d</sub>)</label><input id="coefficientAdditionalSalary" type="number" step="0.01" value="0.4"></div>
+            <div class="field"><label for="coefficientTaxes">Коэф. налогов (W<sub>c</sub>)</label><input id="coefficientTaxes" type="number" step="0.001" value="0.302"></div>
+            <div class="field"><label for="coefficientOverhead">Коэф. накладных (W<sub>н</sub>)</label><input id="coefficientOverhead" type="number" step="0.01" value="0.6"></div>
+            <div class="field"><label for="workDaysPerMonth">Рабочих дней в месяце</label><input id="workDaysPerMonth" type="number" value="21"></div>
+            <div class="field"><label for="machineHourCost">Стоимость маш.часа (S<sub>мч</sub>, руб)</label><input id="machineHourCost" type="number" value="350"></div>
+            <div class="field"><label for="electricityTariff">Тариф э/э (руб/кВтч)</label><input id="electricityTariff" type="number" step="0.1" value="5.8"></div>
+            <div class="field"><label for="equipmentPower">Мощность оборудования (кВт)</label><input id="equipmentPower" type="number" step="0.1" value="0.8"></div>
+            <div class="field"><label for="balanceCost">Балансовая стоимость (руб)</label><input id="balanceCost" type="number" value="450000"></div>
+            <div class="field"><label for="annualTimeFund">Годовой фонд часов (Т<sub>г</sub>)</label><input id="annualTimeFund" type="number" value="2000"></div>
+            <div class="field"><label for="normativeEfficiency">Нормативный коэф. (E<sub>н</sub>)</label><input id="normativeEfficiency" type="number" step="0.01" value="0.33"></div>
+            <div class="field"><label for="annualVolumeValue">Годовой объем (N)</label><input id="annualVolumeValue" type="number" value="1"></div>
         </div>
-      </div>
-      <div>
-        <h3>Аналог</h3>
-        <table id="ktuAnalogTable"><thead><tr><th>Показатель</th><th>Вес B<sub>j</sub></th><th>Оценка X<sub>j</sub> (1-5)</th></tr></thead><tbody></tbody></td>
-        <button class="btn" id="addKtuRowAnalog" type="button">Добавить показатель</button>
-        <div class="result-block">
-          <div class="result"><strong>J<sub>эту аналог</sub> = <span id="jetuAnalog">0</span></strong></div>
-          <div class="calculation-detail" id="jetuAnalogDetail"></div>
+    </section>
+
+    <section id="ktu" class="panel" role="tabpanel">
+        <h2>Коэффициент технического уровня (КТУ)</h2>
+        <div class="two-cols">
+            <div>
+                <h3>Проект (новый)</h3>
+                <table id="ktuProjectTable"><thead><tr><th>Показатель</th><th>Вес B<sub>j</sub></th><th>Оценка X<sub>j</sub> (1-5)</th></tr></thead><tbody></tbody></table>
+                <button class="btn" id="addKtuRowProject" type="button">Добавить показатель</button>
+                <div class="result-block">
+                    <div class="result"><strong>J<sub>эту проект</sub> = <span id="jetuProject">0</span></strong></div>
+                    <div class="calculation-detail" id="jetuProjectDetail"></div>
+                </div>
+            </div>
+            <div>
+                <h3>Аналог</h3>
+                <!-- ИСПРАВЛЕНО: </td> заменён на </table> -->
+                <table id="ktuAnalogTable"><thead><tr><th>Показатель</th><th>Вес B<sub>j</sub></th><th>Оценка X<sub>j</sub> (1-5)</th></tr></thead><tbody></tbody></table>
+                <button class="btn" id="addKtuRowAnalog" type="button">Добавить показатель</button>
+                <div class="result-block">
+                    <div class="result"><strong>J<sub>эту аналог</sub> = <span id="jetuAnalog">0</span></strong></div>
+                    <div class="calculation-detail" id="jetuAnalogDetail"></div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="plan" class="panel" role="tabpanel">
-    <h2>План-график этапов</h2>
-    <div class="field"><label for="projectStartDate">Дата начала проекта</label><input type="date" id="projectStartDate" value="2026-06-01"></div>
-    <table id="planTable"><thead><tr><th>Этап</th><th>Исполнитель</th><th>Дни</th><th>% загрузки</th><th>Дата завершения</th><th></th></tr></thead><tbody></tbody></table>
-    <button class="btn" id="addPlanRow" type="button">Добавить этап</button>
-    <div class="result-block">
-      <div class="result"><strong>Общие человеко-дни по ролям: <span id="roleDaysSummary"></span></strong></div>
-      <div class="calculation-detail" id="planDetail"></div>
-    </div>
-  </section>
+    <section id="plan" class="panel" role="tabpanel">
+        <h2>План-график этапов</h2>
+        <div class="field"><label for="projectStartDate">Дата начала проекта</label><input type="date" id="projectStartDate" value="2026-06-01"></div>
+        <table id="planTable"><thead><tr><th>Этап</th><th>Исполнитель</th><th>Дни</th><th>% загрузки</th><th>Дата завершения</th><th></th></tr></thead><tbody></tbody></table>
+        <button class="btn" id="addPlanRow" type="button">Добавить этап</button>
+        <div class="result-block">
+            <div class="result"><strong>Общие человеко-дни по ролям: <span id="roleDaysSummary"></span></strong></div>
+            <div class="calculation-detail" id="planDetail"></div>
+        </div>
+    </section>
 
-  <section id="costs" class="panel" role="tabpanel">
-    <h2>Капитальные затраты на разработку (K<sub>п</sub>)</h2>
-    <div class="settings-grid">
-      <div class="field"><label for="materialCosts">Затраты на материалы (C<sub>м</sub>, руб)</label><input id="materialCosts" type="number" value="180000"></div>
-      <div class="field"><label for="machineTime">Машинное время (t<sub>мв</sub>, часов)</label><input id="machineTime" type="number" value="320"></div>
-    </div>
-    <h3>Аналог (для сравнения)</h3>
-    <div class="settings-grid">
-      <div class="field"><label for="analogPurchasePrice">Цена покупки (руб)</label><input id="analogPurchasePrice" type="number" value="950000"></div>
-      <div class="field"><label for="analogInstallationCost">Установка (руб)</label><input id="analogInstallationCost" type="number" value="120000"></div>
-      <div class="field"><label for="analogEducationCost">Обучение (руб)</label><input id="analogEducationCost" type="number" value="60000"></div>
-    </div>
-    <hr>
-    <div class="result-block">
-      <div class="result"><strong>ФОТ основной: <span id="totalBaseSalary">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="totalBaseSalaryDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>K<sub>п</sub> (проект): <span id="capitalCostsProject">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="capitalCostsProjectDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>K<sub>п</sub> (аналог): <span id="capitalCostsAnalog">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="capitalCostsAnalogDetail"></div>
-    </div>
-  </section>
+    <section id="costs" class="panel" role="tabpanel">
+        <h2>Капитальные затраты на разработку (K<sub>п</sub>)</h2>
+        <div class="settings-grid">
+            <div class="field"><label for="materialCosts">Затраты на материалы (C<sub>м</sub>, руб)</label><input id="materialCosts" type="number" value="180000"></div>
+            <div class="field"><label for="machineTime">Машинное время (t<sub>мв</sub>, часов)</label><input id="machineTime" type="number" value="320"></div>
+        </div>
+        <h3>Аналог (для сравнения)</h3>
+        <div class="settings-grid">
+            <div class="field"><label for="analogPurchasePrice">Цена покупки (руб)</label><input id="analogPurchasePrice" type="number" value="950000"></div>
+            <div class="field"><label for="analogInstallationCost">Установка (руб)</label><input id="analogInstallationCost" type="number" value="120000"></div>
+            <div class="field"><label for="analogEducationCost">Обучение (руб)</label><input id="analogEducationCost" type="number" value="60000"></div>
+        </div>
+        <hr>
+        <div class="result-block">
+            <div class="result"><strong>ФОТ основной: <span id="totalBaseSalary">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="totalBaseSalaryDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>K<sub>п</sub> (проект): <span id="capitalCostsProject">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="capitalCostsProjectDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>K<sub>п</sub> (аналог): <span id="capitalCostsAnalog">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="capitalCostsAnalogDetail"></div>
+        </div>
+    </section>
 
-  <section id="operating" class="panel" role="tabpanel">
-    <h2>Годовые эксплуатационные затраты (З<sub>тек</sub>)</h2>
-    <div class="result-block">
-      <div class="result"><strong>ФОТ персонала (год): <span id="annualPayroll">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="annualPayrollDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Амортизация: <span id="depreciationCost">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="depreciationDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Электроэнергия: <span id="electricityCost">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="electricityDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Ремонт (5%): <span id="repairCosts">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="repairDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Материалы (10%): <span id="materialsCostOperating">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="materialsOperatingDetail"></div>
-    </div>
-    <hr>
-    <div class="result-block total">
-      <div class="result"><strong>Σ З<sub>тек</sub> (год): <span id="totalOperatingCosts">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="totalOperatingDetail"></div>
-    </div>
-  </section>
+    <section id="operating" class="panel" role="tabpanel">
+        <h2>Годовые эксплуатационные затраты (З<sub>тек</sub>)</h2>
+        <div class="result-block">
+            <div class="result"><strong>ФОТ персонала (год): <span id="annualPayroll">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="annualPayrollDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Амортизация: <span id="depreciationCost">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="depreciationDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Электроэнергия: <span id="electricityCost">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="electricityDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Ремонт (5%): <span id="repairCosts">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="repairDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Материалы (10%): <span id="materialsCostOperating">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="materialsOperatingDetail"></div>
+        </div>
+        <hr>
+        <div class="result-block total">
+            <div class="result"><strong>Σ З<sub>тек</sub> (год): <span id="totalOperatingCosts">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="totalOperatingDetail"></div>
+        </div>
+    </section>
 
-  <section id="efficiency" class="panel" role="tabpanel">
-    <h2>Экономическая эффективность</h2>
-    <div class="result-block">
-      <div class="result"><strong>Приведенные затраты проект (З<sub>2</sub>): <span id="reducedCostsProject">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="reducedCostsProjectDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Приведенные затраты аналог (З<sub>1</sub>): <span id="reducedCostsAnalog">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="reducedCostsAnalogDetail"></div>
-    </div>
-    <div class="result-block">
-      <div class="result"><strong>Годовой эффект: <span id="annualEffect">0</span> руб.</strong></div>
-      <div class="calculation-detail" id="annualEffectDetail"></div>
-    </div>
-  </section>
+    <section id="efficiency" class="panel" role="tabpanel">
+        <h2>Экономическая эффективность</h2>
+        <div class="result-block">
+            <div class="result"><strong>Приведенные затраты проект (З<sub>2</sub>): <span id="reducedCostsProject">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="reducedCostsProjectDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Приведенные затраты аналог (З<sub>1</sub>): <span id="reducedCostsAnalog">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="reducedCostsAnalogDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Годовой эффект: <span id="annualEffect">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="annualEffectDetail"></div>
+        </div>
+    </section>
 
-  <section id="resume" class="panel" role="tabpanel">
-    <h2>Итоговая таблица технико-экономических показателей</h2>
-    <table class="result-table" id="summaryResultTable">
-      <thead>
-        <tr><th>Показатель</th><th>Проект</th><th>Аналог</th><th>Комментарий</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="metric-name">Коэффициент технического уровня A<sub>k</sub> = J<sub>эту1</sub> / J<sub>эту2</sub></td><td colspan="2" id="akValueCell" style="text-align: center; font-weight: 700;">—</td><td id="akComment">Чем выше Ak, тем лучше проект</td></tr>
-        <tr><td class="metric-name">Капитальные затраты K<sub>п</sub> (руб.)</td><td id="kpProjectValue">0 ₽</td><td id="kpAnalogValue">0 ₽</td><td id="kpDeltaMessage">—</td></tr>
-        <tr><td class="metric-name">Годовые эксплуатационные затраты З<sub>тек</sub> (руб./год)</td><td id="ztekProjectValue">0 ₽</td><td id="ztekAnalogValue">0 ₽</td><td id="ztekDeltaMessage">—</td></tr>
-        <tr><td class="metric-name">Приведенные затраты (З = С + E<sub>н</sub>·K<sub>п</sub>)</td><td id="zpProjectValue">0 ₽</td><td id="zpAnalogValue">0 ₽</td><td id="zpDeltaMessage">—</td></tr>
-        <tr><td class="metric-name">Годовой экономический эффект Э = (З<sub>1</sub> × A<sub>k</sub> - З<sub>2</sub>) × N</td><td colspan="2" id="annualEffectTable" style="text-align: center; font-weight: 700;">0 ₽/год</td><td id="effectComment">Положительный эффект = выгодно</td></tr>
-        <tr><td class="metric-name">Срок окупаемости T<sub>ок</sub> = K<sub>п</sub> / Э (лет)</td><td colspan="2" id="paybackTable" style="text-align: center;">—</td><td id="paybackComment">Меньше норматива (3 года) — эффективно</td></tr>
-        <tr><td class="metric-name">Фактический коэффициент E<sub>ф</sub> = 1 / T<sub>ок</sub></td><td colspan="2" id="actualEfficiencyTable" style="text-align: center;">0</td><td id="efficiencyComment">Если Eф > Eн (0.33) — проект эффективен</td></tr>
-        <tr class="summary-row"><td class="metric-name"><strong>Сводка по проекту</strong></td><td colspan="3" id="summaryTextCell" style="text-align: left; background: #eef2ff;">—</td></tr>
-      </tbody>
-    </table>
-    <div class="resume-insight" id="dynamicInsight">Аналитический вывод: данные обновляются автоматически.</div>
-  </section>
+    <section id="resume" class="panel" role="tabpanel">
+        <h2>Итоговая таблица технико-экономических показателей</h2>
+        <table class="result-table" id="summaryResultTable">
+            <thead>
+            <tr><th>Показатель</th><th>Проект</th><th>Аналог</th><th>Комментарий</th></tr>
+            </thead>
+            <tbody>
+            <tr><td class="metric-name">Коэффициент технического уровня A<sub>k</sub> = J<sub>эту1</sub> / J<sub>эту2</sub></td><td colspan="2" id="akValueCell" style="text-align: center; font-weight: 700;">—</td><td id="akComment">Чем выше Ak, тем лучше проект</td></tr>
+            <tr><td class="metric-name">Капитальные затраты K<sub>п</sub> (руб.)</td><td id="kpProjectValue">0 ₽</td><td id="kpAnalogValue">0 ₽</td><td id="kpDeltaMessage">—</td></tr>
+            <tr><td class="metric-name">Годовые эксплуатационные затраты З<sub>тек</sub> (руб./год)</td><td id="ztekProjectValue">0 ₽</td><td id="ztekAnalogValue">0 ₽</td><td id="ztekDeltaMessage">—</td></tr>
+            <tr><td class="metric-name">Приведенные затраты (З = С + E<sub>н</sub>·K<sub>п</sub>)</td><td id="zpProjectValue">0 ₽</td><td id="zpAnalogValue">0 ₽</td><td id="zpDeltaMessage">—</td></tr>
+            <tr><td class="metric-name">Годовой экономический эффект Э = (З<sub>1</sub> × A<sub>k</sub> - З<sub>2</sub>) × N</td><td colspan="2" id="annualEffectTable" style="text-align: center; font-weight: 700;">0 ₽/год</td><td id="effectComment">Положительный эффект = выгодно</td></tr>
+            <tr><td class="metric-name">Срок окупаемости T<sub>ок</sub> = K<sub>п</sub> / Э (лет)</td><td colspan="2" id="paybackTable" style="text-align: center;">—</td><td id="paybackComment">Меньше норматива (3 года) — эффективно</td></tr>
+            <tr><td class="metric-name">Фактический коэффициент E<sub>ф</sub> = 1 / T<sub>ок</sub></td><td colspan="2" id="actualEfficiencyTable" style="text-align: center;">0</td><td id="efficiencyComment">Если Eф > Eн (0.33) — проект эффективен</td></tr>
+            <tr class="summary-row"><td class="metric-name"><strong>Сводка по проекту</strong></td><td colspan="3" id="summaryTextCell" style="text-align: left; background: #eef2ff;">—</td></tr>
+            </tbody>
+        </table>
+        <div class="resume-insight" id="dynamicInsight">Аналитический вывод: данные обновляются автоматически.</div>
+    </section>
 </div>
 <script src="script.js"></script>
 </body>
