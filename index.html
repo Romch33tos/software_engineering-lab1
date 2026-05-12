@@ -150,7 +150,24 @@
         </div>
     </section>
 
-    <section id="resume" class="panel" role="tabpanel"></section>
+    <section id="resume" class="panel" role="tabpanel">
+        <h2>Итоговая таблица технико-экономических показателей</h2>
+        <table class="result-table" id="summaryResultTable">
+            <thead>
+            <tr><th>Показатель</th><th>Проект</th><th>Комментарий</th></tr>
+            </thead>
+            <tbody>
+            <tr><td class="metric-name">Коэффициент технического уровня A<sub>k</sub></td><td id="akValueCell" style="font-weight: 700;">—</td><td id="akComment">Сравнение с аналогом: J<sub>эту проект</sub>/J<sub>эту аналог</sub></td></tr>
+            <tr><td class="metric-name">Капитальные затраты K<sub>п</sub> (руб.)</td><td id="kpProjectValue">0 ₽</td><td id="kpComment">Сравнение с аналогом</td></tr>
+            <tr><td class="metric-name">Годовые эксплуатационные затраты З<sub>тек</sub> (руб./год)</td><td id="ztekProjectValue">0 ₽</td><td id="ztekComment">Эксплуатационные расходы проекта</td></tr>
+            <tr><td class="metric-name">Приведенные затраты З (руб.)</td><td id="zpProjectValue">0 ₽</td><td id="zpComment">З = С + E<sub>н</sub>·K<sub>п</sub></td></tr>
+            <tr><td class="metric-name">Годовой экономический эффект Э (руб./год)</td><td id="annualEffectTable" style="font-weight: 700;">0 ₽/год</td><td id="effectComment">Э = (З<sub>1</sub> × A<sub>k</sub> - З<sub>2</sub>) × N</td></tr>
+            <tr><td class="metric-name">Срок окупаемости T<sub>ок</sub> (лет)</td><td id="paybackTable">—</td><td id="paybackComment">Норматив: до 3 лет</td></tr>
+            <tr><td class="metric-name">Фактический коэффициент E<sub>ф</sub></td><td id="actualEfficiencyTable">0</td><td id="efficiencyComment">E<sub>ф</sub> = 1/T<sub>ок</sub></td></tr>
+            </tbody>
+        </table>
+        <div class="resume-insight" id="dynamicInsight">Аналитический вывод: данные обновляются автоматически.</div>
+    </section>
 </div>
 <script src="script.js"></script>
 </body>
