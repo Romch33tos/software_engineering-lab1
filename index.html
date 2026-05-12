@@ -67,7 +67,17 @@
         </div>
     </section>
 
-    <section id="plan" class="panel" role="tabpanel"></section>
+    <section id="plan" class="panel" role="tabpanel">
+        <h2>План-график этапов</h2>
+        <div class="field"><label for="projectStartDate">Дата начала проекта</label><input type="date" id="projectStartDate" value="2026-06-01"></div>
+        <table id="planTable"><thead><tr><th>Этап</th><th>Исполнитель</th><th>Дни</th><th>% загрузки</th><th>Дата завершения</th><th></th></tr></thead><tbody></tbody></table>
+        <button class="btn" id="addPlanRow" type="button">Добавить этап</button>
+        <div class="result-block">
+            <div class="result"><strong>Общие человеко-дни по ролям: <span id="roleDaysSummary"></span></strong></div>
+            <div class="calculation-detail" id="planDetail"></div>
+        </div>
+    </section>
+
     <section id="costs" class="panel" role="tabpanel"></section>
     <section id="operating" class="panel" role="tabpanel"></section>
     <section id="efficiency" class="panel" role="tabpanel"></section>
