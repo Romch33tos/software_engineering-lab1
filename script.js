@@ -326,4 +326,52 @@
         }
         return totalOperating;
     }
+
+    function calculateEfficiency() {
+        const settings = getSettings();
+        const technicalLevelRatio = updateKtu();
+        const capitalCosts = calculateCapitalCosts();
+        const operatingCosts = calculateOperatingCosts();
+
+        const akCell = document.getElementById('akValueCell');
+        if (akCell) {
+            akCell.innerHTML = `<strong>${technicalLevelRatio.toFixed(3)}</strong>`;
+        }
+
+        const projectReducedCosts = operatingCosts + settings.normativeEfficiency * capitalCosts.projectCosts;
+        const analogReducedCosts = operatingCosts * 1.15 + settings.normativeEfficiency * capitalCosts.analogCosts;
+
+        document.getElementById('reducedCostsProject').textContent = projectReducedCosts.toFixed(2);
+        document.getElementById('reducedCostsAnalog').textContent = analogReducedCosts.toFixed(2);
+
+        const z2Detail = document.getElementById('reducedCostsProjectDetail');
+        if (z2Detail) {
+            z2Detail.textContent = `Расчет:\nЗ2 = Зтек + Eн × Kп(проект)\n` +
+                `= ${operatingCosts.toFixed(2)} + ${settings.normativeEfficiency} × ${capitalCosts.projectCosts.toFixed(2)}\n` +
+                `= ${operatingCosts.toFixed(2)} + ${(settings.normativeEfficiency * capitalCosts.projectCosts).toFixed(2)} = ${projectReducedCosts.toFixed(2)}`;
+        }
+
+        const z1Detail = document.getElementById('reducedCostsAnalogDetail');
+        if (z1Detail) {
+            z1Detail.textContent = `Расчет:\nЗ1 = (Зтек × 1.15) + Eн × Kп(аналог)\n` +
+                `= (${operatingCosts.toFixed(2)} × 1.15) + ${settings.normativeEfficiency} × ${capitalCosts.analogCosts.toFixed(2)}\n` +
+                `= ${(operatingCosts * 1.15).toFixed(2)} + ${(settings.normativeEfficiency * capitalCosts.analogCosts).toFixed(2)} = ${analogReducedCosts.toFixed(2)}`;
+        }
+
+        const annualEffect = (analogReducedCosts * technicalLevelRatio - projectReducedCosts) * settings.annualVolume;
+        document.getElementById('annualEffect').textContent = annualEffect.toFixed(2);
+
+        const effectDetail = document.getElementById('annualEffectDetail');
+        if (effectDetail) {
+            effectDetail.textContent = `Расчет:\nЭ = (З1 × Ak - З2) × N\n` +
+                `= (${analogReducedCosts.toFixed(2)} × ${technicalLevelRatio.toFixed(3)} - ${projectReducedCosts.toFixed(2)}) × ${settings.annualVolume}\n` +
+                `= (${(analogReducedCosts * technicalLevelRatio).toFixed(2)} - ${projectReducedCosts.toFixed(2)}) × ${settings.annualVolume}\n` +
+                `= ${(analogReducedCosts * technicalLevelRatio - projectReducedCosts).toFixed(2)} × ${settings.annualVolume} = ${annualEffect.toFixed(2)}`;
+        }
+
+        let paybackPeriodValue = (annualEffect > 0 && capitalCosts.projectCosts > 0) ? capitalCosts.projectCosts / annualEffect : Infinity;
+        const actualEfficiencyValue = (paybackPeriodValue > 0 && isFinite(paybackPeriodValue)) ? 1 / paybackPeriodValue : 0;
+
+        updateTableSummary(technicalLevelRatio, capitalCosts, operatingCosts, projectReducedCosts, analogReducedCosts, annualEffect, paybackPeriodValue, actualEfficiencyValue, settings);
+    }
 })();
