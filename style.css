@@ -190,3 +190,38 @@ td {
 .btn-outline:hover {
     background: #eef2ff;
 }
+
+.result {
+    margin: 0.3rem 0;
+    font-size: 1rem;
+}
+
+.result.total {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.result-block {
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    padding: 0.5rem;
+    background: #fafcff;
+    border-radius: 0.5rem;
+}
+
+.result-block:first-of-type {
+    margin-top: 2rem;
+}
+
+.calculation-detail {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #2d3a4a;
+    font-family: monospace;
+    margin-top: 0.3rem;
+    padding: 0.5rem 0.75rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    white-space: pre-line;
+    word-break: break-word;
+}
