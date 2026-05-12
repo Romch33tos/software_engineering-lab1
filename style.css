@@ -1,24 +1,18 @@
-body {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: #f4f7fc;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    text-align: center;
-}
-
-h1 {
-    color: #333;
-    font-size: 3rem;
-    transition: transform 0.3s ease;
-}
-
-h1:hover {
-    transform: scale(1.1);
+    padding: 1.5rem;
+    min-height: 100vh;
+    line-height: 1.5;
+    color: #1e293b;
 }
