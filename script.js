@@ -216,4 +216,58 @@
         }
         return roleDaysMap;
     }
+
+    function calculateCapitalCosts() {
+        const settings = getSettings();
+        const roleDays = calculatePlanDates();
+        const salaryMap = getSalaryMap(settings);
+        let totalBaseSalary = 0;
+        const fotCalculationLines = [];
+        for (const role in roleDays) {
+            if (roleDays.hasOwnProperty(role)) {
+                const monthlySalary = salaryMap[role] || 0;
+                const dailyRate = monthlySalary / settings.workDaysPerMonth;
+                const roleCost = dailyRate * roleDays[role];
+                totalBaseSalary += roleCost;
+                fotCalculationLines.push(`${role}: ${monthlySalary.toFixed(0)} / ${settings.workDaysPerMonth} × ${roleDays[role]} = ${roleCost.toFixed(2)}`);
+            }
+        }
+        document.getElementById('totalBaseSalary').textContent = totalBaseSalary.toFixed(2);
+        const fotDetailDiv = document.getElementById('totalBaseSalaryDetail');
+        if (fotDetailDiv && fotCalculationLines.length) {
+            const totals = fotCalculationLines.map(line => {
+                const match = line.match(/= ([\d.]+)$/);
+                return match ? match[1] : '0';
+            });
+            fotDetailDiv.textContent = 'Расчет:\n' + fotCalculationLines.join('\n') +
+                `\nИтого: ${totals.join(' + ')} = ${totalBaseSalary.toFixed(2)}`;
+        }
+        const additionalSalary = totalBaseSalary * settings.additionalSalaryRatio;
+        const taxesAmount = (totalBaseSalary + additionalSalary) * settings.taxRatio;
+        const overheadAmount = totalBaseSalary * settings.overheadRatio;
+        const materialCost = parseFloat(document.getElementById('materialCosts').value) || 0;
+        const machineHours = parseFloat(document.getElementById('machineTime').value) || 0;
+        const machineCost = machineHours * settings.machineHourCost;
+        const capitalCostsProject = totalBaseSalary + additionalSalary + taxesAmount + overheadAmount + materialCost + machineCost;
+        const sumMultiplier = (1 + settings.additionalSalaryRatio) * (1 + settings.taxRatio) + settings.overheadRatio;
+        const kpDetailDiv = document.getElementById('capitalCostsProjectDetail');
+        if (kpDetailDiv) {
+            kpDetailDiv.textContent = `Расчет:\nKп = ((1+Wd)×(1+Wc)+Wн) × ΣЗоi + Cм + tмв × Sмч\n` +
+                `Kп = ((1+${settings.additionalSalaryRatio})×(1+${settings.taxRatio})+${settings.overheadRatio}) × ${totalBaseSalary.toFixed(2)} + ${materialCost} + ${machineHours}×${settings.machineHourCost}\n` +
+                `Kп = ${sumMultiplier.toFixed(3)} × ${totalBaseSalary.toFixed(2)} + ${materialCost} + ${machineCost.toFixed(2)}\n` +
+                `Kп = ${(sumMultiplier * totalBaseSalary).toFixed(2)} + ${materialCost} + ${machineCost.toFixed(2)} = ${capitalCostsProject.toFixed(2)}`;
+        }
+        const analogPrice = parseFloat(document.getElementById('analogPurchasePrice').value) || 0;
+        const analogInstall = parseFloat(document.getElementById('analogInstallationCost').value) || 0;
+        const analogEducation = parseFloat(document.getElementById('analogEducationCost').value) || 0;
+        const capitalCostsAnalog = analogPrice + analogInstall + analogEducation;
+        document.getElementById('capitalCostsProject').textContent = capitalCostsProject.toFixed(2);
+        document.getElementById('capitalCostsAnalog').textContent = capitalCostsAnalog.toFixed(2);
+        const analogDetailDiv = document.getElementById('capitalCostsAnalogDetail');
+        if (analogDetailDiv) {
+            analogDetailDiv.textContent = `Расчет:\nKп (аналог) = Цена покупки + Установка + Обучение\n` +
+                `= ${analogPrice.toFixed(0)} + ${analogInstall.toFixed(0)} + ${analogEducation.toFixed(0)} = ${capitalCostsAnalog.toFixed(2)}`;
+        }
+        return { projectCosts: capitalCostsProject, analogCosts: capitalCostsAnalog };
+    }
 })();
