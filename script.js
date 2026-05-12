@@ -111,4 +111,109 @@
         const technicalLevelRatio = jetuAnalog !== 0 ? jetuProject / jetuAnalog : 1;
         return technicalLevelRatio;
     }
+
+    function createPlanRow(stageName, role, days, loadPercent) {
+        const row = document.createElement('tr');
+        const roleOptions = roleNames.map(r => `<option${r === role ? ' selected' : ''}>${r}</option>`).join('');
+        row.innerHTML = '<td><input value="' + (stageName || '') + '" required style="width:100%" minlength="3" maxlength="100" placeholder="Название этапа"></td>' +
+            '<td><select>' + roleOptions + '</select></td>' +
+            '<td><input type="number" min="1" max="365" value="' + days + '" required style="width:70px"></td>' +
+            '<td><input type="number" min="1" max="100" value="' + loadPercent + '" step="1" required style="width:80px"></td>' +
+            '<td class="endDate">—</td>' +
+            '<td><button class="btn-outline delete-row-button" type="button">Удалить</button></td>';
+        row.querySelector('.delete-row-button').addEventListener('click', function () { row.remove(); recalcAll(); });
+
+        const inputs = row.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                calculatePlanDates();
+            });
+            input.addEventListener('change', function() {
+                calculatePlanDates();
+            });
+        });
+
+        const select = row.querySelector('select');
+        if (select) {
+            select.addEventListener('change', function() {
+                calculatePlanDates();
+            });
+        }
+
+        return row;
+    }
+
+    function addPlanRow(role, days, loadPercent) {
+        document.querySelector('#planTable tbody').appendChild(createPlanRow('', role, days, loadPercent));
+    }
+
+    function initPlan() {
+        document.getElementById('addPlanRow').addEventListener('click', () => addPlanRow('Разработчик', 5, 100));
+
+        const initialStages = [
+            { name: 'Анализ требований', role: 'Аналитик', days: 8, load: 100 },
+            { name: 'Проектирование архитектуры', role: 'Разработчик', days: 12, load: 100 },
+            { name: 'Управление проектом', role: 'Руководитель', days: 5, load: 100 }
+        ];
+
+        initialStages.forEach(stage => {
+            document.querySelector('#planTable tbody').appendChild(
+                createPlanRow(stage.name, stage.role, stage.days, stage.load)
+            );
+        });
+    }
+
+    function isWeekend(date) {
+        const dayOfWeek = date.getDay();
+        return dayOfWeek === 0 || dayOfWeek === 6;
+    }
+
+    function addWorkDays(startDate, daysToAdd) {
+        let currentDate = new Date(startDate);
+        let addedDays = 0;
+        while (addedDays < daysToAdd) {
+            if (!isWeekend(currentDate)) addedDays++;
+            if (addedDays < daysToAdd) currentDate.setDate(currentDate.getDate() + 1);
+        }
+        return currentDate;
+    }
+
+    function calculatePlanDates() {
+        const startDateInput = document.getElementById('projectStartDate').value;
+        if (!startDateInput) return {};
+        let currentDate = new Date(startDateInput);
+        if (isNaN(currentDate.getTime())) return {};
+        const planRows = document.querySelectorAll('#planTable tbody tr');
+        const roleDaysMap = {};
+        const planCalculationLines = [];
+        let stageNumber = 1;
+        planRows.forEach(row => {
+            const inputs = row.querySelectorAll('input');
+            const stageName = inputs[0].value || `Этап ${stageNumber}`;
+            const role = row.querySelector('select').value;
+            const daysCount = parseInt(inputs[1].value) || 0;
+            const loadPercent = parseInt(inputs[2].value) || 100;
+            const actualWorkDays = Math.ceil(daysCount * (loadPercent / 100));
+            const endDate = addWorkDays(currentDate, daysCount);
+            row.querySelector('.endDate').textContent = endDate.toLocaleDateString('ru-RU');
+            planCalculationLines.push(`${stageName}: ${daysCount} дн. × ${loadPercent}% = ${actualWorkDays} чел-дней (${role})`);
+            currentDate = new Date(endDate);
+            currentDate.setDate(currentDate.getDate() + 1);
+            if (!roleDaysMap[role]) roleDaysMap[role] = 0;
+            roleDaysMap[role] += actualWorkDays;
+            stageNumber++;
+        });
+        const summaryParts = [];
+        for (const role in roleDaysMap) {
+            if (roleDaysMap.hasOwnProperty(role)) {
+                summaryParts.push(role + ': ' + roleDaysMap[role] + ' дн.');
+            }
+        }
+        document.getElementById('roleDaysSummary').textContent = summaryParts.join(', ');
+        const planDetailDiv = document.getElementById('planDetail');
+        if (planDetailDiv && planCalculationLines.length) {
+            planDetailDiv.textContent = 'Расчет:\n' + planCalculationLines.join('\n');
+        }
+        return roleDaysMap;
+    }
 })();
