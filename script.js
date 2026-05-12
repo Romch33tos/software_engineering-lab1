@@ -32,4 +32,18 @@
             'Инженер': settings.engineerSalary
         };
     }
+
+    function initTabs() {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.panel');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-tab');
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                panels.forEach(panel => panel.classList.remove('active'));
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    }
 })();
