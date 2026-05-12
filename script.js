@@ -842,4 +842,49 @@
 
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    function recalcAll() {
+        const validation = validateAllInputs();
+        if (!validation.isValid) {
+            displayValidationErrors(validation.errors);
+            return;
+        }
+        const container = document.getElementById('validation-errors-container');
+        if (container) {
+            container.innerHTML = '';
+            container.style.display = 'none';
+        }
+        document.querySelectorAll('.field-error, .field-warning').forEach(el => {
+            el.classList.remove('field-error', 'field-warning');
+        });
+        calculateEfficiency();
+    }
+
+    function initApp() {
+        initTabs();
+        initKtu();
+        initPlan();
+
+        const initialValidation = validateAllInputs();
+        if (initialValidation.isValid) {
+            calculateEfficiency();
+        } else {
+            displayValidationErrors(initialValidation.errors);
+        }
+
+        document.addEventListener('input', function (event) {
+            if (event.target.closest('.panel')) {
+                recalcAll();
+            }
+        });
+
+        document.addEventListener('change', function (event) {
+            if (event.target.closest('.panel')) {
+                recalcAll();
+            }
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+    window.recalcAll = recalcAll;
 })();
