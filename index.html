@@ -106,7 +106,34 @@
         </div>
     </section>
 
-    <section id="operating" class="panel" role="tabpanel"></section>
+    <section id="operating" class="panel" role="tabpanel">
+        <h2>Годовые эксплуатационные затраты (З<sub>тек</sub>)</h2>
+        <div class="result-block">
+            <div class="result"><strong>ФОТ персонала (год): <span id="annualPayroll">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="annualPayrollDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Амортизация: <span id="depreciationCost">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="depreciationDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Электроэнергия: <span id="electricityCost">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="electricityDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Ремонт (5%): <span id="repairCosts">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="repairDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>Материалы (10%): <span id="materialsCostOperating">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="materialsOperatingDetail"></div>
+        </div>
+        <div class="result-block total">
+            <div class="result"><strong>Σ З<sub>тек</sub> (год): <span id="totalOperatingCosts">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="totalOperatingDetail"></div>
+        </div>
+    </section>
+
     <section id="efficiency" class="panel" role="tabpanel"></section>
     <section id="resume" class="panel" role="tabpanel"></section>
 </div>
