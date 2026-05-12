@@ -78,7 +78,34 @@
         </div>
     </section>
 
-    <section id="costs" class="panel" role="tabpanel"></section>
+    <section id="costs" class="panel" role="tabpanel">
+        <h2>Капитальные затраты на разработку (K<sub>п</sub>)</h2>
+        <div class="settings-grid">
+            <div class="field"><label for="materialCosts">Затраты на материалы (C<sub>м</sub>, руб)</label><input id="materialCosts" type="number" min="0" max="10000000" value="180000"></div>
+            <div class="field"><label for="machineTime">Машинное время (t<sub>мв</sub>, часов)</label><input id="machineTime" type="number" min="0" max="5000" value="320"></div>
+        </div>
+        <div class="separator"></div>
+        <h3 style="margin-top: 0.5rem;">Аналог (для сравнения)</h3>
+        <div class="settings-grid">
+            <div class="field"><label for="analogPurchasePrice">Цена покупки (руб)</label><input id="analogPurchasePrice" type="number" min="1" max="100000000" value="950000"></div>
+            <div class="field"><label for="analogInstallationCost">Установка (руб)</label><input id="analogInstallationCost" type="number" min="0" max="10000000" value="120000"></div>
+            <div class="field"><label for="analogEducationCost">Обучение (руб)</label><input id="analogEducationCost" type="number" min="0" max="10000000" value="60000"></div>
+        </div>
+        <div class="separator"></div>
+        <div class="result-block" style="margin-top: 0.25rem;">
+            <div class="result"><strong>ФОТ основной: <span id="totalBaseSalary">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="totalBaseSalaryDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>K<sub>п</sub> (проект): <span id="capitalCostsProject">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="capitalCostsProjectDetail"></div>
+        </div>
+        <div class="result-block">
+            <div class="result"><strong>K<sub>п</sub> (аналог): <span id="capitalCostsAnalog">0</span> руб.</strong></div>
+            <div class="calculation-detail" id="capitalCostsAnalogDetail"></div>
+        </div>
+    </section>
+
     <section id="operating" class="panel" role="tabpanel"></section>
     <section id="efficiency" class="panel" role="tabpanel"></section>
     <section id="resume" class="panel" role="tabpanel"></section>
