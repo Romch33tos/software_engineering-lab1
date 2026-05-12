@@ -374,4 +374,102 @@
 
         updateTableSummary(technicalLevelRatio, capitalCosts, operatingCosts, projectReducedCosts, analogReducedCosts, annualEffect, paybackPeriodValue, actualEfficiencyValue, settings);
     }
+
+    function updateTableSummary(ak, capitalCosts, operatingCosts, projectReduced, analogReduced, annualEffect, paybackPeriod, actualEfficiency, settings) {
+        const analogOperatingBase = operatingCosts * 1.15;
+
+        let akCommentText = `Техническое решение `;
+        if (Math.abs(ak - 1.0) < 0.01) {
+            akCommentText += `полностью соответствует современному эталонному аналогу, обеспечивая необходимую производительность.`;
+        } else if (ak > 1.0) {
+            const percent = ((ak - 1.0) * 100).toFixed(1);
+            akCommentText += `превосходит аналог на ${percent}% по интегральному показателю качества, что гарантирует более высокую производительность и функциональность.`;
+        } else {
+            const percent = ((1.0 - ak) * 100).toFixed(1);
+            akCommentText += `уступает аналогу на ${percent}%, однако это может быть компенсировано значительным снижением затрат на внедрение и эксплуатацию.`;
+        }
+        document.getElementById('akComment').textContent = akCommentText;
+
+        document.getElementById('kpProjectValue').innerHTML = capitalCosts.projectCosts.toFixed(2) + ' ₽';
+        const kpDelta = capitalCosts.projectCosts - capitalCosts.analogCosts;
+        let kpComment = '';
+        if (kpDelta < 0) {
+            const savingPercent = (Math.abs(kpDelta) / capitalCosts.analogCosts * 100).toFixed(1);
+            kpComment += `Инвестиционный порог на ${savingPercent}% ниже рыночного аналога (экономия ${Math.abs(kpDelta).toFixed(0)} ₽), что существенно снижает финансовую нагрузку на старте.`;
+        } else if (kpDelta > 0) {
+            const excessPercent = (kpDelta / capitalCosts.analogCosts * 100).toFixed(1);
+            kpComment += `Капитальные затраты проекта превышают стоимость аналога на ${excessPercent}% (перерасход ${kpDelta.toFixed(0)} ₽), что требует дополнительного обоснования окупаемости.`;
+        } else {
+            kpComment += `Капитальные затраты идентичны рыночному предложению — конкурентное преимущество отсутствует.`;
+        }
+        document.getElementById('kpComment').textContent = kpComment;
+
+        document.getElementById('ztekProjectValue').innerHTML = operatingCosts.toFixed(2) + ' ₽/год';
+        const ztekDelta = operatingCosts - analogOperatingBase;
+        let ztekComment = '';
+        if (ztekDelta < 0) {
+            const savingPercent = (Math.abs(ztekDelta) / analogOperatingBase * 100).toFixed(1);
+            ztekComment += `Снижение операционных расходов на ${savingPercent}% относительно аналога обеспечивает долгосрочную экономию ресурсов предприятия.`;
+        } else {
+            const excessPercent = (ztekDelta / analogOperatingBase * 100).toFixed(1);
+            ztekComment += `Эксплуатационные издержки проекта выше на ${excessPercent}%, что может негативно сказаться на совокупной стоимости владения.`;
+        }
+        document.getElementById('ztekComment').textContent = ztekComment;
+
+        document.getElementById('zpProjectValue').innerHTML = projectReduced.toFixed(2) + ' ₽';
+        const zpDelta = projectReduced - analogReduced;
+        let zpComment = '';
+        if (zpDelta < 0) {
+            zpComment += `Интегральный показатель подтверждает суммарную выгоду в ${Math.abs(zpDelta).toFixed(0)} ₽. Проект минимизирует совокупную стоимость владения.`;
+        } else {
+            zpComment += `Интегральный показатель аналога выгоднее на ${zpDelta.toFixed(0)} ₽. Проект нуждается в оптимизации затратной части.`;
+        }
+        document.getElementById('zpComment').textContent = zpComment;
+
+        document.getElementById('annualEffectTable').innerHTML = annualEffect.toFixed(2) + ' ₽/год';
+        const effectCommentSpan = document.getElementById('effectComment');
+        if (annualEffect > 0) {
+            effectCommentSpan.textContent = 'Высокий положительный эффект подтверждает стратегическую целесообразность выделения бюджета на реализацию данного решения.';
+        } else if (annualEffect < 0) {
+            effectCommentSpan.textContent = 'Отрицательный эффект сигнализирует об убыточности проекта — пересмотрите технические или стоимостные параметры.';
+        } else {
+            effectCommentSpan.textContent = 'Нулевой эффект: проект находится на границе безубыточности, требуется анализ чувствительности.';
+        }
+
+        const displayPayback = isFinite(paybackPeriod) ? paybackPeriod.toFixed(2) : '> 10 лет';
+        document.getElementById('paybackTable').textContent = displayPayback;
+        const paybackNumeric = isFinite(paybackPeriod) ? paybackPeriod : 999;
+        const paybackCommentSpan = document.getElementById('paybackComment');
+        if (paybackNumeric < 1) {
+            paybackCommentSpan.textContent = `Экстремально короткий срок возврата инвестиций (менее 12 месяцев) при нормативе до 3 лет гарантирует высокую ликвидность проекта.`;
+        } else if (paybackNumeric < 3) {
+            paybackCommentSpan.textContent = `Отличный срок окупаемости (${displayPayback} года) — проект быстро возвращает вложенные средства.`;
+        } else if (paybackNumeric <= 5) {
+            paybackCommentSpan.textContent = `Приемлемый срок окупаемости (${displayPayback} лет), укладывается в горизонт среднесрочного планирования.`;
+        } else {
+            paybackCommentSpan.textContent = `Срок возврата инвестиций (${displayPayback} лет) превышает норматив в 3 года, что создает риски потери капитала.`;
+        }
+
+        document.getElementById('actualEfficiencyTable').textContent = actualEfficiency.toFixed(3);
+        const efficiencyCommentSpan = document.getElementById('efficiencyComment');
+        if (actualEfficiency > settings.normativeEfficiency) {
+            const times = (actualEfficiency / settings.normativeEfficiency).toFixed(1);
+            efficiencyCommentSpan.textContent = `Рентабельность инвестиций в ${times} раз превышает нормативное значение (Eн = ${settings.normativeEfficiency}), что свидетельствует о сверхнормативной эффективности.`;
+        } else {
+            efficiencyCommentSpan.textContent = `Фактическая эффективность ниже норматива (Eн = ${settings.normativeEfficiency}). Рекомендуется пересмотреть бюджет или сроки реализации.`;
+        }
+
+        const insightDiv = document.getElementById('dynamicInsight');
+        if (insightDiv) {
+            let verdict = '';
+            if (annualEffect > 0 && (paybackNumeric <= 3 || actualEfficiency > settings.normativeEfficiency)) {
+                verdict = 'Проведенный расчет подтверждает высокую инвестиционную привлекательность и финансовую устойчивость проекта. Благодаря сочетанию низких капитальных вложений и сокращения ежегодных эксплуатационных затрат, проект демонстрирует показатели эффективности, значительно превышающие среднеотраслевые нормативы. Минимальный срок окупаемости минимизирует риски потери капитала. Проект полностью готов к внедрению и рекомендуется к реализации в текущем финансовом периоде.';
+            } else if (annualEffect > 0) {
+                verdict = 'Проект прибылен, но показатели окупаемости близки к нормативным. Рекомендуется провести оптимизацию капитальных затрат или пересмотреть план-график для улучшения инвестиционных метрик.';
+            } else {
+                verdict = 'Проект не обеспечивает достаточного экономического эффекта. Необходимо пересмотреть параметры технического уровня, капитальных вложений или оценить возможность использования альтернативных решений.';
+            }
+            insightDiv.textContent = `Аналитический вывод: ${verdict}`;
+        }
+    }
 })();
