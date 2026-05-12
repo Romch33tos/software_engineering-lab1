@@ -43,7 +43,30 @@
         </div>
     </section>
 
-    <section id="ktu" class="panel" role="tabpanel"></section>
+    <section id="ktu" class="panel" role="tabpanel">
+        <h2>Коэффициент технического уровня (КТУ)</h2>
+        <div class="two-cols">
+            <div>
+                <h3>Проект (новый)</h3>
+                <table id="ktuProjectTable"><thead><tr><th>Показатель</th><th>Вес B<sub>j</sub></th><th>Оценка X<sub>j</sub> (1-5)</th></tr></thead><tbody></tbody></table>
+                <button class="btn" id="addKtuRowProject" type="button">Добавить показатель</button>
+                <div class="result-block">
+                    <div class="result"><strong>J<sub>эту проект</sub> = <span id="jetuProject">0</span></strong></div>
+                    <div class="calculation-detail" id="jetuProjectDetail"></div>
+                </div>
+            </div>
+            <div>
+                <h3>Аналог</h3>
+                <table id="ktuAnalogTable"><thead><tr><th>Показатель</th><th>Вес B<sub>j</sub></th><th>Оценка X<sub>j</sub> (1-5)</th></tr></thead><tbody></tbody></table>
+                <button class="btn" id="addKtuRowAnalog" type="button">Добавить показатель</button>
+                <div class="result-block">
+                    <div class="result"><strong>J<sub>эту аналог</sub> = <span id="jetuAnalog">0</span></strong></div>
+                    <div class="calculation-detail" id="jetuAnalogDetail"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="plan" class="panel" role="tabpanel"></section>
     <section id="costs" class="panel" role="tabpanel"></section>
     <section id="operating" class="panel" role="tabpanel"></section>
