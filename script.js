@@ -472,4 +472,374 @@
             insightDiv.textContent = `Аналитический вывод: ${verdict}`;
         }
     }
+
+    function validateAllInputs() {
+        const errors = [];
+
+        const numericFields = [
+            { id: 'salaryDeveloper', label: 'Оклад разработчика', min: 30000, max: 1000000, type: 'number' },
+            { id: 'salaryAnalyst', label: 'Оклад аналитика', min: 30000, max: 1000000, type: 'number' },
+            { id: 'salaryProjectManager', label: 'Оклад руководителя', min: 30000, max: 1000000, type: 'number' },
+            { id: 'salaryEngineer', label: 'Оклад инженера', min: 30000, max: 1000000, type: 'number' },
+        ];
+
+        numericFields.forEach(field => {
+            const el = document.getElementById(field.id);
+            if (!el) return;
+            const val = el.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: field.id, message: `Поле «${field.label}» не может быть пустым` });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < field.min || numVal > field.max) {
+                    errors.push({ fieldId: field.id, message: `Поле «${field.label}» должно быть числом в диапазоне от ${field.min.toLocaleString('ru-RU')} до ${field.max.toLocaleString('ru-RU')}` });
+                }
+            }
+        });
+
+        const rangeFields = [
+            { id: 'coefficientAdditionalSalary', label: 'Коэффициент дополнительной зарплаты', min: 0, max: 1 },
+            { id: 'coefficientTaxes', label: 'Коэффициент налогов', min: 0, max: 1 },
+            { id: 'normativeEfficiency', label: 'Нормативный коэффициент', min: 0.001, max: 1 },
+        ];
+
+        rangeFields.forEach(field => {
+            const el = document.getElementById(field.id);
+            if (!el) return;
+            const val = el.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: field.id, message: `Поле «${field.label}» не может быть пустым` });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < field.min || numVal > field.max) {
+                    errors.push({ fieldId: field.id, message: `Параметр «${field.label}» должен находиться в диапазоне от ${field.min} до ${field.max}` });
+                }
+            }
+        });
+
+        const overheadEl = document.getElementById('coefficientOverhead');
+        if (overheadEl) {
+            const val = overheadEl.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: 'coefficientOverhead', message: 'Поле «Коэффициент накладных расходов» не может быть пустым' });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < 0 || numVal > 5) {
+                    errors.push({ fieldId: 'coefficientOverhead', message: 'Параметр «Коэффициент накладных расходов» должен находиться в диапазоне от 0 до 5' });
+                }
+            }
+        }
+
+        const positiveIntFields = [
+            { id: 'workDaysPerMonth', label: 'Количество рабочих дней в месяце', min: 1, max: 31 },
+            { id: 'annualTimeFund', label: 'Годовой фонд рабочего времени', min: 100, max: 8760 },
+            { id: 'annualVolumeValue', label: 'Годовой объем внедрения', min: 1, max: 10000 },
+        ];
+
+        positiveIntFields.forEach(field => {
+            const el = document.getElementById(field.id);
+            if (!el) return;
+            const val = el.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: field.id, message: `Поле «${field.label}» не может быть пустым` });
+            } else {
+                const numVal = parseInt(val, 10);
+                if (isNaN(numVal) || numVal < field.min || numVal > field.max) {
+                    errors.push({ fieldId: field.id, message: `Поле «${field.label}» — введите целое число от ${field.min} до ${field.max}` });
+                }
+            }
+        });
+
+        const positiveFloatFields = [
+            { id: 'machineHourCost', label: 'Стоимость машино-часа', min: 10, max: 50000 },
+            { id: 'electricityTariff', label: 'Тариф на электроэнергию', min: 1, max: 50 },
+            { id: 'equipmentPower', label: 'Мощность оборудования', min: 0.01, max: 500 },
+        ];
+
+        positiveFloatFields.forEach(field => {
+            const el = document.getElementById(field.id);
+            if (!el) return;
+            const val = el.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: field.id, message: `Поле «${field.label}» не может быть пустым` });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < field.min || numVal > field.max) {
+                    errors.push({ fieldId: field.id, message: `Поле «${field.label}» должно быть числом в диапазоне от ${field.min} до ${field.max}` });
+                }
+            }
+        });
+
+        const balanceCostEl = document.getElementById('balanceCost');
+        if (balanceCostEl) {
+            const val = balanceCostEl.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: 'balanceCost', message: 'Поле «Балансовая стоимость» не может быть пустым' });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < 0 || numVal > 100000000) {
+                    errors.push({ fieldId: 'balanceCost', message: 'Поле «Балансовая стоимость» должно быть числом в диапазоне от 0 до 100 000 000' });
+                }
+            }
+        }
+
+        const materialCostsEl = document.getElementById('materialCosts');
+        if (materialCostsEl) {
+            const val = materialCostsEl.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: 'materialCosts', message: 'Поле «Затраты на материалы» не может быть пустым' });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < 0 || numVal > 10000000) {
+                    errors.push({ fieldId: 'materialCosts', message: 'Поле «Затраты на материалы» должно быть числом от 0 до 10 000 000' });
+                }
+            }
+        }
+
+        const machineTimeEl = document.getElementById('machineTime');
+        if (machineTimeEl) {
+            const val = machineTimeEl.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: 'machineTime', message: 'Поле «Машинное время» не может быть пустым' });
+            } else {
+                const numVal = parseInt(val, 10);
+                if (isNaN(numVal) || numVal < 0 || numVal > 5000) {
+                    errors.push({ fieldId: 'machineTime', message: 'Поле «Машинное время» — введите целое число от 0 до 5 000 часов' });
+                }
+            }
+        }
+
+        const analogPriceEl = document.getElementById('analogPurchasePrice');
+        if (analogPriceEl) {
+            const val = analogPriceEl.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: 'analogPurchasePrice', message: 'Поле «Цена покупки аналога» не может быть пустым' });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < 1 || numVal > 100000000) {
+                    errors.push({ fieldId: 'analogPurchasePrice', message: 'Поле «Цена покупки аналога» должно быть числом от 1 до 100 000 000' });
+                }
+            }
+        }
+
+        const analogInstallEl = document.getElementById('analogInstallationCost');
+        if (analogInstallEl) {
+            const val = analogInstallEl.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: 'analogInstallationCost', message: 'Поле «Стоимость установки аналога» не может быть пустым' });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < 0 || numVal > 10000000) {
+                    errors.push({ fieldId: 'analogInstallationCost', message: 'Поле «Стоимость установки аналога» должно быть числом от 0 до 10 000 000' });
+                }
+            }
+        }
+
+        const analogEducationEl = document.getElementById('analogEducationCost');
+        if (analogEducationEl) {
+            const val = analogEducationEl.value.trim();
+            if (val === '') {
+                errors.push({ fieldId: 'analogEducationCost', message: 'Поле «Стоимость обучения персонала» не может быть пустым' });
+            } else {
+                const numVal = parseFloat(val);
+                if (isNaN(numVal) || numVal < 0 || numVal > 10000000) {
+                    errors.push({ fieldId: 'analogEducationCost', message: 'Поле «Стоимость обучения персонала» должно быть числом от 0 до 10 000 000' });
+                }
+            }
+        }
+
+        const ktuTables = [
+            { tableId: 'ktuProjectTable', label: 'Проект' },
+            { tableId: 'ktuAnalogTable', label: 'Аналог' }
+        ];
+
+        ktuTables.forEach(tableInfo => {
+            const rows = document.querySelectorAll(`#${tableInfo.tableId} tbody tr`);
+            if (rows.length === 0) {
+                errors.push({ fieldId: tableInfo.tableId, message: `В таблице «${tableInfo.label}» добавьте хотя бы один показатель` });
+                return;
+            }
+            let weightSum = 0;
+            rows.forEach((row, index) => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs.length >= 2) {
+                    const nameVal = inputs[0].value.trim();
+                    const weightVal = inputs[1].value.trim();
+                    const scoreVal = inputs[2].value.trim();
+
+                    if (!nameVal) {
+                        errors.push({ fieldId: inputs[0], message: `${tableInfo.label}, строка ${index + 1}: название показателя не может быть пустым` });
+                    } else if (nameVal.length < 3) {
+                        errors.push({ fieldId: inputs[0], message: `${tableInfo.label}, строка ${index + 1}: название показателя должно содержать не менее 3 символов` });
+                    } else if (nameVal.length > 100) {
+                        errors.push({ fieldId: inputs[0], message: `${tableInfo.label}, строка ${index + 1}: название показателя не должно превышать 100 символов` });
+                    }
+
+                    if (!weightVal) {
+                        errors.push({ fieldId: inputs[1], message: `${tableInfo.label}, строка ${index + 1}: вес не может быть пустым` });
+                    } else {
+                        const weight = parseFloat(weightVal);
+                        if (isNaN(weight) || weight < 0.01 || weight > 1) {
+                            errors.push({ fieldId: inputs[1], message: `${tableInfo.label}, строка ${index + 1}: вес должен находиться в пределах от 0,01 до 1` });
+                        } else {
+                            weightSum += weight;
+                        }
+                    }
+
+                    if (!scoreVal) {
+                        errors.push({ fieldId: inputs[2], message: `${tableInfo.label}, строка ${index + 1}: оценка не может быть пустой` });
+                    } else {
+                        const score = parseFloat(scoreVal);
+                        if (isNaN(score) || score < 1 || score > 5) {
+                            errors.push({ fieldId: inputs[2], message: `${tableInfo.label}, строка ${index + 1}: оценка должна быть от 1 до 5` });
+                        }
+                    }
+                }
+            });
+
+            if (rows.length > 0 && Math.abs(weightSum - 1.0) > 0.01) {
+                errors.push({ fieldId: tableInfo.tableId, message: `${tableInfo.label}: сумма весов составляет ${weightSum.toFixed(3)}, а должна равняться 1,0` });
+            }
+        });
+
+        const startDateEl = document.getElementById('projectStartDate');
+        if (startDateEl) {
+            const dateVal = startDateEl.value.trim();
+            if (!dateVal) {
+                errors.push({ fieldId: 'projectStartDate', message: 'Укажите дату начала проекта' });
+            } else {
+                const selectedDate = new Date(dateVal);
+                const oneYearAgo = new Date();
+                oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+                oneYearAgo.setHours(0, 0, 0, 0);
+                if (selectedDate < oneYearAgo) {
+                    errors.push({ fieldId: 'projectStartDate', message: 'Дата начала проекта не может быть раньше, чем год назад от текущей даты' });
+                }
+            }
+        }
+
+        const planRows = document.querySelectorAll('#planTable tbody tr');
+        planRows.forEach((row, index) => {
+            const inputs = row.querySelectorAll('input');
+            if (inputs.length >= 3) {
+                const stageName = inputs[0].value.trim();
+                const daysVal = inputs[1].value.trim();
+                const loadVal = inputs[2].value.trim();
+
+                if (!stageName) {
+                    errors.push({ fieldId: inputs[0], message: `План, строка ${index + 1}: название этапа не может быть пустым` });
+                } else if (stageName.length < 3) {
+                    errors.push({ fieldId: inputs[0], message: `План, строка ${index + 1}: название этапа должно содержать не менее 3 символов` });
+                } else if (stageName.length > 100) {
+                    errors.push({ fieldId: inputs[0], message: `План, строка ${index + 1}: название этапа не должно превышать 100 символов` });
+                }
+
+                if (!daysVal) {
+                    errors.push({ fieldId: inputs[1], message: `План, строка ${index + 1}: количество дней не может быть пустым` });
+                } else {
+                    const days = parseInt(daysVal, 10);
+                    if (isNaN(days) || days < 1 || days > 365) {
+                        errors.push({ fieldId: inputs[1], message: `План, строка ${index + 1}: введите целое количество дней от 1 до 365` });
+                    }
+                }
+
+                if (!loadVal) {
+                    errors.push({ fieldId: inputs[2], message: `План, строка ${index + 1}: процент загрузки не может быть пустым` });
+                } else {
+                    const load = parseInt(loadVal, 10);
+                    if (isNaN(load) || load < 1 || load > 100) {
+                        errors.push({ fieldId: inputs[2], message: `План, строка ${index + 1}: процент загрузки должен быть от 1 до 100` });
+                    }
+                }
+            }
+        });
+
+        return {
+            isValid: errors.length === 0,
+            errors: errors
+        };
+    }
+
+    function displayValidationErrors(errors) {
+        document.querySelectorAll('.field-error, .field-warning').forEach(el => {
+            el.classList.remove('field-error', 'field-warning');
+        });
+
+        const container = document.getElementById('validation-errors-container');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (!errors || errors.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+
+        errors.forEach(error => {
+            let targetEl = null;
+
+            if (error.fieldId instanceof Element) {
+                targetEl = error.fieldId;
+            } else if (typeof error.fieldId === 'string') {
+                targetEl = document.getElementById(error.fieldId);
+            }
+
+            if (targetEl) {
+                targetEl.classList.add('field-error');
+            }
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error-item';
+            errorDiv.textContent = error.message;
+
+            if (targetEl) {
+                errorDiv.addEventListener('click', function() {
+                    if (targetEl) {
+                        targetEl.focus();
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            } else if (typeof error.fieldId === 'string') {
+                errorDiv.dataset.fieldId = error.fieldId;
+                errorDiv.addEventListener('click', function() {
+                    const panelEl = document.getElementById(this.dataset.fieldId);
+                    if (panelEl) {
+                        panelEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+
+            container.appendChild(errorDiv);
+        });
+
+        container.style.display = 'block';
+
+        const firstError = errors[0];
+        if (firstError) {
+            let targetEl = null;
+            if (firstError.fieldId instanceof Element) {
+                targetEl = firstError.fieldId;
+            } else if (typeof firstError.fieldId === 'string') {
+                targetEl = document.getElementById(firstError.fieldId);
+            }
+
+            if (targetEl) {
+                const panel = targetEl.closest('.panel');
+                if (panel) {
+                    const panelId = panel.id;
+                    const tabBtn = document.querySelector(`.tab-btn[data-tab="${panelId}"]`);
+                    if (tabBtn) {
+                        tabBtn.click();
+                    }
+                }
+            } else if (firstError.fieldId === 'ktuProjectTable' || firstError.fieldId === 'ktuAnalogTable') {
+                const tabBtn = document.querySelector('.tab-btn[data-tab="ktu"]');
+                if (tabBtn) tabBtn.click();
+            } else if (firstError.fieldId === 'planTable' || firstError.fieldId === 'projectStartDate') {
+                const tabBtn = document.querySelector('.tab-btn[data-tab="plan"]');
+                if (tabBtn) tabBtn.click();
+            }
+        }
+
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 })();
