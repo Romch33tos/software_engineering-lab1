@@ -270,4 +270,60 @@
         }
         return { projectCosts: capitalCostsProject, analogCosts: capitalCostsAnalog };
     }
+
+    function calculateOperatingCosts() {
+        const settings = getSettings();
+        const salaryMap = getSalaryMap(settings);
+        const payrollParts = [];
+        let annualPayroll = 0;
+        for (let i = 0; i < roleNames.length; i++) {
+            const monthlySalary = salaryMap[roleNames[i]] || 0;
+            const yearlyCost = monthlySalary * 12;
+            annualPayroll += yearlyCost;
+            payrollParts.push(`${roleNames[i]}: ${monthlySalary.toFixed(0)} × 12 = ${yearlyCost.toFixed(0)}`);
+        }
+        document.getElementById('annualPayroll').textContent = annualPayroll.toFixed(2);
+        const payrollDetailDiv = document.getElementById('annualPayrollDetail');
+        if (payrollDetailDiv) {
+            const totals = payrollParts.map(p => {
+                const match = p.match(/= ([\d.]+)$/);
+                return match ? match[1] : '0';
+            });
+            payrollDetailDiv.textContent = 'Расчет:\n' + payrollParts.join('\n') +
+                `\nИтого: ${totals.join(' + ')} = ${annualPayroll.toFixed(2)}`;
+        }
+        const depreciation = settings.balanceCost * 0.2;
+        document.getElementById('depreciationCost').textContent = depreciation.toFixed(2);
+        const depreciationDetail = document.getElementById('depreciationDetail');
+        if (depreciationDetail) {
+            depreciationDetail.textContent = `Расчет:\nАмортизация = Балансовая стоимость × 20%\n= ${settings.balanceCost.toFixed(0)} × 0.2 = ${depreciation.toFixed(2)}`;
+        }
+        const electricity = settings.equipmentPower * settings.annualTimeFund * settings.electricityTariff;
+        document.getElementById('electricityCost').textContent = electricity.toFixed(2);
+        const electricityDetail = document.getElementById('electricityDetail');
+        if (electricityDetail) {
+            electricityDetail.textContent = `Расчет:\nЭлектроэнергия = Мощность × Годовой фонд времени × Тариф\n= ${settings.equipmentPower} × ${settings.annualTimeFund} × ${settings.electricityTariff} = ${electricity.toFixed(2)}`;
+        }
+        const repairCosts = settings.balanceCost * 0.05;
+        document.getElementById('repairCosts').textContent = repairCosts.toFixed(2);
+        const repairDetail = document.getElementById('repairDetail');
+        if (repairDetail) {
+            repairDetail.textContent = `Расчет:\nРемонт = Балансовая стоимость × 5%\n= ${settings.balanceCost.toFixed(0)} × 0.05 = ${repairCosts.toFixed(2)}`;
+        }
+        const materialsCosts = settings.balanceCost * 0.1;
+        document.getElementById('materialsCostOperating').textContent = materialsCosts.toFixed(2);
+        const materialsDetail = document.getElementById('materialsOperatingDetail');
+        if (materialsDetail) {
+            materialsDetail.textContent = `Расчет:\nМатериалы = Балансовая стоимость × 10%\n= ${settings.balanceCost.toFixed(0)} × 0.1 = ${materialsCosts.toFixed(2)}`;
+        }
+        const totalOperating = annualPayroll + depreciation + electricity + repairCosts + materialsCosts;
+        document.getElementById('totalOperatingCosts').textContent = totalOperating.toFixed(2);
+        const totalDetail = document.getElementById('totalOperatingDetail');
+        if (totalDetail) {
+            totalDetail.textContent = `Расчет:\nЗтек = ФОТ + Амортизация + Электроэнергия + Ремонт + Материалы\n` +
+                `= ${annualPayroll.toFixed(2)} + ${depreciation.toFixed(2)} + ${electricity.toFixed(2)} + ${repairCosts.toFixed(2)} + ${materialsCosts.toFixed(2)}\n` +
+                `= ${totalOperating.toFixed(2)}`;
+        }
+        return totalOperating;
+    }
 })();
