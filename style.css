@@ -16,3 +16,42 @@ body {
     line-height: 1.5;
     color: #1e293b;
 }
+
+.app-container {
+    max-width: 1400px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #0b2b4a;
+    letter-spacing: -0.3px;
+    border-left: 5px solid #2563eb;
+    padding-left: 1rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+}
+
+h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+h3:first-child {
+    margin-top: 0;
+}
