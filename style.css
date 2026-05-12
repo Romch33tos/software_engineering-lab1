@@ -48,7 +48,12 @@ h2 {
 h3 {
     font-size: 1.05rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+h3:first-child {
+    margin-top: 0;
 }
 
 .tabs {
@@ -99,6 +104,11 @@ h3 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.settings-grid:last-child {
+    margin-bottom: 0;
 }
 
 .two-cols {
@@ -192,10 +202,15 @@ td {
 }
 
 .result-block {
-    margin-bottom: 0.75rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
     padding: 0.5rem;
     background: #fafcff;
     border-radius: 0.5rem;
+}
+
+.result-block:first-of-type {
+    margin-top: 2rem;
 }
 
 .calculation-detail {
@@ -233,7 +248,7 @@ td {
 .result-table td {
     padding: 0.75rem 0.8rem;
     border-bottom: 1px solid #e2e8f0;
-    text-align: center;
+    text-align: left;
     font-weight: 500;
 }
 
@@ -262,6 +277,51 @@ sub {
     font-size: 0.7em;
     vertical-align: sub;
     line-height: 1;
+}
+
+.field-error {
+    border-color: #dc2626 !important;
+    background-color: #fef2f2 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+}
+
+.field-warning {
+    border-color: #d97706 !important;
+    background-color: #fffbeb !important;
+}
+
+#validation-errors-container {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+#validation-errors-container:not(:empty) {
+    display: block;
+}
+
+.validation-error-item {
+    color: #991b1b;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    cursor: pointer;
+}
+
+.validation-error-item:hover {
+    text-decoration: underline;
+}
+
+.validation-error-item::before {
+    content: "⚠️ ";
+}
+
+.separator {
+    margin: 1.5rem 0 1rem 0;
+    border-top: 1px solid #e2e8f0;
 }
 
 @media (max-width: 700px) {
